@@ -1,0 +1,4 @@
+include ':shezhi'
+include ':gongneng'
+include ':app'
+rootProject.name = "My Application"
