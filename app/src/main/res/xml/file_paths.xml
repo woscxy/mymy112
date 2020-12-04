@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <external-path name="my_images" path="@mipmap/ic_launcher_round" />
+
+    <!--  添加 by cxy   解决错误：Failed to find configured root that contains  -->
+    <external-path name="output_image" path="Android/data/com.example.myapplication02/cache" />
+    <external-path name="image" path="DCIM/Camera" />
+</paths>

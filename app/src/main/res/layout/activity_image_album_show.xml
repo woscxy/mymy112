@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".image_album_show">
+
+    <ImageView
+        android:layout_weight="1"
+        android:id="@+id/V_Image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/Return_Back_to_page1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="回到功能页面"
+            android:layout_weight="1"/>
+        <Button
+            android:id="@+id/upload"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上传至服务器"
+            android:layout_weight="1"/>
+    </LinearLayout>
+</LinearLayout>

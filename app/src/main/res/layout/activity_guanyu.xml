@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".versionActivity"
+    android:orientation="vertical"
+    android:padding="5px">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="物种图像采集"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="  物种识别是目前先进技术的重要表现，它不仅涉及到机器学习，以及大数据分析，还涉及到语义分割等各种技术，未来的发展前景广阔。"
+        android:textSize="14sp"
+        />
+</LinearLayout>

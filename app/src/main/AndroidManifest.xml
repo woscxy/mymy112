@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.dali"
+    android:installLocation="auto">
+    <!-- 获取相机权限 -->
+    <uses-feature
+        android:name="android.hardware.camera2"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autocue" />
+
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!--允许应用程序改变网络状态-->
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
+    <!--允许应用程序改变WIFI连接状态-->
+
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
+    <!--允许应用程序访问有关的网络信息-->
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!--允许应用程序访问WIFI网卡的网络信息-->
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <!--允许应用程序完全使用网络-->
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+
+
+    <!-- android:requestLegacyExternalStorage="true"  add bycxy -->
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="物种识别"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+        android:requestLegacyExternalStorage="true"
+
+        >
+        <activity android:name=".guanyuActivity"></activity>
+        <activity android:name=".tyActivity" />
+        <activity android:name=".versionActivity" />
+        <activity android:name=".uploadActivity" />
+        <activity android:name=".image_album_show" />
+        <activity android:name=".shezhi" />
+        <activity android:name=".gongneng" />
+        <activity android:name=".showInformation"/>
+        <activity android:name=".MainActivity">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.media.action.IMAGE_CAPTURE" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.MapScanner.MapScanner"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+    </application>
+
+</manifest>

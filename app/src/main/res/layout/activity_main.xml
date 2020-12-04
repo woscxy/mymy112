@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    >
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="物种图像采集"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="233dp"
+        android:background="@mipmap/panda"
+        android:layout_marginTop="5dp"/>
+
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:text="      野外图像采集APP的设计与实现，不仅解决物种识别中缺少动物识别的问题，还涉及到改进新的压缩及传输算法，APP的设计也方便使用手机相机进行采集，合理的解决图像识别中图像采集所存在的大部分问题，为野外物种爱好者提供了功能较为全面的识别平台，也发展了野外物种图像采集处理技术。研究基于嵌入式系统的图像采集处理技术对图像采集处理系统向微型化、网络化、智能化发展具有重要的意义。"
+    android:textSize="14sp"
+    android:layout_margin="5dp"
+    />
+</LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:background="#ffffff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="bottom"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/sy1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/shouye"
+                android:layout_gravity="center"
+                >
+            </ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" 首页 "
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="#000000"
+                android:layout_gravity="bottom"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:id="@+id/gn1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/gongneng"
+                android:layout_gravity="center"
+                >
+            </ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" 功能 "
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="#000000"
+                android:layout_gravity="bottom"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="30dp"
+            android:layout_height="40dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_weight="1"
+            >
+            <ImageView
+                android:id="@+id/sz1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@mipmap/shezhi"
+                android:layout_gravity="center"
+                >
+            </ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text=" 设置 "
+                android:gravity="center"
+                android:textSize="11sp"
+                android:textColor="#000000"
+                android:layout_gravity="bottom"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+

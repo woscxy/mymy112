@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".versionActivity"
+    android:orientation="vertical"
+    android:padding="5px">
+    <TextView
+        android:id="@+id/setResult"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="物种识别结果"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <WebView
+
+        android:id="@+id/webView01"
+        android:layout_height="fill_parent"
+
+        android:layout_width="fill_parent"
+
+        android:focusable="false" />
+
+</LinearLayout>
