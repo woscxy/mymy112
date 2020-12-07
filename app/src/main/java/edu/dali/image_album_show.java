@@ -285,38 +285,45 @@ public class image_album_show extends AppCompatActivity {
         switch (Show_Choice) {
             case 1:
                 try {
-                    // 将拍摄的照片显示出来
-                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
-                    String fileName=Environment.getExternalStorageDirectory().toString()
-                            +File.separator
-                            +"AppTest"
-                            +File.separator
-                            +"PicTest_"+System.currentTimeMillis()+".jpg";
-                    File file=new File(fileName);
-                    if(!file.getParentFile().exists()){
-                        file.getParentFile().mkdir();//创建文件夹
-                    }
-                    try {
-                        BufferedOutputStream bos=new BufferedOutputStream(new FileOutputStream(file));
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);           //向缓冲区压缩图片 change by cxy
-                        bos.flush();
-                        bos.close();
-                        Toast.makeText(image_album_show.this, "拍照成功，照片保存在"+fileName+"文件之中！", Toast.LENGTH_LONG).show();
-                        Log.d("MAIN", fileName);
+                    if(resultCode == RESULT_CANCELED){
+                        Toast.makeText(image_album_show.this, "您取消了拍照！", Toast.LENGTH_LONG).show();
                         Intent i=new Intent(image_album_show.this,gongneng.class);
                         startActivity(i);
-                    } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        //e.printStackTrace();
-                        Toast.makeText(image_album_show.this, "拍照未成功，照片保存在"+fileName+"文件之中！", Toast.LENGTH_LONG).show();
+                    }else {
+
+                        // 将拍摄的照片显示出来
+                        Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        String fileName = Environment.getExternalStorageDirectory().toString()
+                                + File.separator
+                                + "AppTest"
+                                + File.separator
+                                + "PicTest_" + System.currentTimeMillis() + ".jpg";
+                        File file = new File(fileName);
+                        if (!file.getParentFile().exists()) {
+                            file.getParentFile().mkdir();//创建文件夹
+                        }
+                        try {
+                            BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);           //向缓冲区压缩图片 change by cxy
+                            bos.flush();
+                            bos.close();
+                            Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！", Toast.LENGTH_LONG).show();
+                            Log.d("MAIN", fileName);
+                            Intent i = new Intent(image_album_show.this, gongneng.class);
+                            startActivity(i);
+                        } catch (Exception e) {
+                            // TODO Auto-generated catch block
+                            //e.printStackTrace();
+                            Toast.makeText(image_album_show.this, "拍照未成功，照片保存在" + fileName + "文件之中！", Toast.LENGTH_LONG).show();
 //                        Toast.makeText(image_album_show.this, "未拍照！"+e.toString(), Toast.LENGTH_LONG).show();
-                        Log.d("MAIN", e.toString());
-                        Intent i=new Intent(image_album_show.this,gongneng.class);
-                        startActivity(i);
+                            Log.d("MAIN", e.toString());
+                            Intent i = new Intent(image_album_show.this, gongneng.class);
+                            startActivity(i);
+                        }
+                        picture.setImageBitmap(bitmap);
+                        MediaScannerConnection.scanFile(this, new String[]{file.getAbsolutePath()}, null, null);
                     }
-                    picture.setImageBitmap(bitmap);
-                    MediaScannerConnection.scanFile(this, new String[] { file.getAbsolutePath() }, null, null);
-                } catch (Exception e) {
+                    } catch (Exception e) {
                     e.printStackTrace();
                 }
                 break;
