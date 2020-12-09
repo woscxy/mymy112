@@ -1,6 +1,7 @@
 package edu.dali;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Looper;
 
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private EditText regUserName;
     private EditText regPassWord;
     private Button btn_reg;
-
+    private Button fanhui;
     ProgressDialog dialog;
 
     @Override
@@ -40,6 +41,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         regUserName = (EditText)findViewById(R.id.regUserName);
         regPassWord = (EditText)findViewById(R.id.regPassWord);
         btn_reg = (Button)findViewById(R.id.btn_reg);
+        fanhui = (Button)findViewById(R.id.fanhui);
+        fanhui.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(Register.this,Login.class);
+                startActivity(i);
+            }
+        });
 
         btn_reg.setOnClickListener(this);
     }

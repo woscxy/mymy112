@@ -28,7 +28,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private EditText password;
     private Button login;
     private TextView info;
-    private TextView register;
+    private Button register;
     //提示框
     private ProgressDialog dialog;
     //服务器返回的数据
@@ -45,7 +45,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         password = (EditText)findViewById(R.id.password);
         login = (Button)findViewById(R.id.btn_login);
         info = (TextView)findViewById(R.id.info);
-        register = (TextView)findViewById(R.id.register);
+        register = (Button)findViewById(R.id.register);
 
         //设置按钮监听器
         login.setOnClickListener(this);
@@ -72,6 +72,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             InputStream in = urlConnection.getInputStream();
                             printInputStream(in);
                             Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                            Intent i=new Intent(Login.this,MainActivity.class);
+                            startActivity(i);
                             Looper.loop();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
