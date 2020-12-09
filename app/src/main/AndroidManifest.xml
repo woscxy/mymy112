@@ -16,50 +16,32 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!--允许应用程序改变网络状态-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> <!-- 允许应用程序改变网络状态 -->
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" /> <!-- 允许应用程序改变WIFI连接状态 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- 允许应用程序访问有关的网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- 允许应用程序访问WIFI网卡的网络信息 -->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" /> <!-- 允许应用程序完全使用网络 -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
-
-    <!--允许应用程序改变WIFI连接状态-->
-
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-
-    <!--允许应用程序访问有关的网络信息-->
-
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
-    <!--允许应用程序访问WIFI网卡的网络信息-->
-
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-
-    <!--允许应用程序完全使用网络-->
-
-    <uses-permission android:name="android.permission.INTERNET"/>
-
-
-
-    <!-- android:requestLegacyExternalStorage="true"  add bycxy -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="物种识别"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:requestLegacyExternalStorage="true"
-
-        >
-        <activity android:name=".guanyuActivity"></activity>
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".Register"></activity>
+        <activity android:name=".Login" />
+        <activity android:name=".guanyuActivity" />
         <activity android:name=".tyActivity" />
         <activity android:name=".versionActivity" />
         <activity android:name=".uploadActivity" />
         <activity android:name=".image_album_show" />
         <activity android:name=".shezhi" />
         <activity android:name=".gongneng" />
-        <activity android:name=".showInformation"/>
+        <activity android:name=".showInformation" />
         <activity android:name=".MainActivity">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.media.action.IMAGE_CAPTURE" />
@@ -77,7 +59,6 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-
     </application>
 
 </manifest>

@@ -285,7 +285,6 @@ public class image_album_show extends AppCompatActivity {
         switch (Show_Choice) {
             case 1:
                 try {
-                    Toast.makeText(image_album_show.this, "您取消了拍照！", Toast.LENGTH_LONG).show();
                     if(resultCode == RESULT_CANCELED){
                         Toast.makeText(image_album_show.this, "您取消了拍照！", Toast.LENGTH_LONG).show();
                         Intent i=new Intent(image_album_show.this,gongneng.class);
