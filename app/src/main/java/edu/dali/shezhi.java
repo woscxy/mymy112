@@ -55,5 +55,13 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
+        Button quit=(Button) findViewById(R.id.quit);
+        quit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(shezhi.this,Login.class);
+                startActivity(i);
+            }
+        });
     }
 }

@@ -25,6 +25,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
     private EditText regUserName;
     private EditText regPassWord;
+    private EditText shenfen;
     private Button btn_reg;
     private Button fanhui;
     ProgressDialog dialog;
@@ -34,12 +35,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         //修改标题栏title
-        ActionBar ac = getSupportActionBar();
-        ac.setTitle("注册");
+
 
         //初始化
         regUserName = (EditText)findViewById(R.id.regUserName);
         regPassWord = (EditText)findViewById(R.id.regPassWord);
+        shenfen = (EditText)findViewById(R.id.shenfen);
         btn_reg = (Button)findViewById(R.id.btn_reg);
         fanhui = (Button)findViewById(R.id.fanhui);
         fanhui.setOnClickListener(new View.OnClickListener() {
@@ -64,12 +65,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     public void run() {
                         try {
                             Looper.prepare();
-                            String path = "http://oy36017559.picp.vip/HelloWeb/RegLet" + "?username=" + regUserName.getText() + "&password=" + regPassWord.getText();
+                            String path = "http://202.203.16.38:8080/HelloWeb/RegLet" + "?username=" + regUserName.getText() + "&password=" + regPassWord.getText()+ "&shenfen=" + shenfen.getText();
                             URL url = new URL(path);
                             URLConnection urlConnection = url.openConnection();
                             InputStream in = urlConnection.getInputStream();
                             printInputStream(in);
-                            Toast.makeText(Register.this, "上传图片", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
                             Looper.loop();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();

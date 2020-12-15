@@ -5,6 +5,7 @@ import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -23,6 +24,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Bitmap;
@@ -59,8 +62,16 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Base64;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 public class image_album_show extends AppCompatActivity {
+    private SharedPreferences mShared_2;
+    private SharedPreferences mShared_3;
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
@@ -73,6 +84,7 @@ public class image_album_show extends AppCompatActivity {
     }
 
     public void sendImgMsg(DataOutputStream out ) throws IOException {
+
         //发送的图片为图标，就是安卓机器人，将bitmap转为字节数组
         Log.i("sendImgMsg", "len: "+"1");
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background);
@@ -87,8 +99,44 @@ public class image_album_show extends AppCompatActivity {
         out.write(bout.toByteArray());
     }
 
+//实现进度条显示
+    private class LoadingAsyncTask extends AsyncTask<String, Integer, Long> {
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressBar.setProgress(0);
+            //前期准备，比如设置显示进度条，按钮点击后不可用等
+        }
+        @Override
+        protected Long doInBackground(String... params) {
+            //1，耗时操作
+            //2.将进度公布出去
+            int result = 0;//设置进度
+            for(result=0;result<=100;result++){
+                publishProgress(result);
+                try {
+                    Thread.sleep(50);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+            }
+            return null;//可以写返回值
+        }
+        @Override
+        protected void onProgressUpdate(Integer... progresses) {
+            super.onProgressUpdate(progresses);
+            progressBar.setProgress(progresses[0]);
+            text.setText("loading..." + progresses[0] + "%");
+            //由values设置进度
+        }
 
-
+        @Override
+        protected void onPostExecute(Long aLong) {
+            super.onPostExecute(aLong);
+            text.setText("上传完成");
+            //耗时操作执行完毕，更新UI
+        }
+    }
 
 
     private ImageView picture;
@@ -96,7 +144,8 @@ public class image_album_show extends AppCompatActivity {
     private Button Return_page;
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
-
+    TextView text;
+    ProgressBar progressBar;
 
     //接受前一个Intent传入的id
     private Bundle bundle;
@@ -119,19 +168,22 @@ public class image_album_show extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(image_album_show.this, "上传图片", Toast.LENGTH_SHORT).show();
-
+                LoadingAsyncTask task = new LoadingAsyncTask();
+                task.execute();
 
                 new Thread() {
 
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     public void run() {
-
+                        mShared_2 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
+                        String addhost = mShared_2.getString("addhost","202.203.16.38");
 //                        File f = new File("D:\\img\\test.jpg");//要传输的图片路径地址
 //                        File outputImage = new File(getExternalCacheDir(), "output_image.jpg");         //要传输的图片路径地址 bycxy
 //                        File f = new File(String.valueOf(outputImage));                                     //要传输的图片路径地址
                         File f = new File(String.valueOf(imagePath));                                       //change bycxy
 //                        String host = "192.168.1.102";//本机运行
-                        String host = "202.203.16.38";
+                        String host =addhost ;
+
 //                        String host = "nswz.dali.edu.cn"; //            地址要写对              //
                         int port =8083;
 
@@ -180,6 +232,10 @@ public class image_album_show extends AppCompatActivity {
 
             }
         });
+
+        text=(TextView) findViewById(R.id.text);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+
 
         //
         Return_page.setOnClickListener(new View.OnClickListener() {
@@ -303,14 +359,16 @@ public class image_album_show extends AppCompatActivity {
                             file.getParentFile().mkdir();//创建文件夹
                         }
                         try {
+                            mShared_3 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
+                            String cp = mShared_3.getString("cp","100");
+                            int comp=Integer.parseInt(cp);
                             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 10, bos);           //向缓冲区压缩图片 change by cxy
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, comp, bos);           //向缓冲区压缩图片 change by cxy
                             bos.flush();
                             bos.close();
-                            Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！", Toast.LENGTH_LONG).show();
+                            Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！当前图片压缩率："+cp, Toast.LENGTH_LONG).show();
                             Log.d("MAIN", fileName);
-                            Intent i = new Intent(image_album_show.this, gongneng.class);
-                            startActivity(i);
+
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             //e.printStackTrace();

@@ -66,7 +66,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     public void run() {
                         try {
                             Looper.prepare();
-                            String path = "http://oy36017559.picp.vip/HelloWeb/LogLet" + "?username=" + username.getText() + "&password=" + password.getText();
+                            //登录服务器地址  update by WF
+                            String path = "http://202.203.16.38:8080/HelloWeb/LogLet" + "?username=" + username.getText() + "&password=" + password.getText();
                             URL url = new URL(path);
                             URLConnection urlConnection = url.openConnection();
                             InputStream in = urlConnection.getInputStream();

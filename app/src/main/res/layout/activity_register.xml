@@ -8,12 +8,20 @@
     <EditText
         android:id="@+id/regUserName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="注册账号"/>
     <EditText
         android:id="@+id/regPassWord"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:hint="密码"
+        />
+    <EditText
+        android:id="@+id/shenfen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="身份"
+        />
     <Button
         android:text="注册"
         android:id="@+id/btn_reg"

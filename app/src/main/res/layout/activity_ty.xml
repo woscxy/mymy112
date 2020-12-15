@@ -20,9 +20,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+    android:id="@+id/host"
+    android:layout_width="411dp"
+    android:layout_height="wrap_content"
+    android:hint="设置Host"
+    android:text=""/>
     <Button
+        android:id="@+id/makesure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="设置图像路径"
-        />
+        android:text="点击确认使用Host" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="45dp" />
+    <EditText
+        android:id="@+id/compress"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:hint="设置压缩率（在1-100之间，数值越小压缩效果越好）"
+        android:text=""/>
+    <Button
+        android:id="@+id/cpButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="确认" />
 </LinearLayout>
