@@ -62,8 +62,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_reg:
-
-
                 new Thread() {
                     @Override
                     public void run() {
