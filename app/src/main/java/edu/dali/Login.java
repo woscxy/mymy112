@@ -3,6 +3,7 @@ package edu.dali;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Looper;
 import android.os.Bundle;
 import android.util.Log;
@@ -33,7 +34,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private ProgressDialog dialog;
     //服务器返回的数据
     private String infoString;
-
+    private SharedPreferences mShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +72,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             URL url = new URL(path);
                             URLConnection urlConnection = url.openConnection();
                             InputStream in = urlConnection.getInputStream();
-                            printInputStream(in);
-                            Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                            Intent i=new Intent(Login.this,MainActivity.class);
-                            startActivity(i);
-                            Looper.loop();
+                            String info = printInputStream(in);   //输出到控制台 并得到后台返回的信息 change by cxy
+                            int isSuccess = Integer.parseInt(info);
+                            if(isSuccess == 1){
+                                mShared = getSharedPreferences("name_info", MODE_PRIVATE);
+                                String name = username.getText().toString();
+                                SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
+                                editor.putString("name",name); // 添加一个名叫name的字符串参数
+                                editor.apply();
+                                Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                Intent i=new Intent(Login.this,MainActivity.class);
+                                startActivity(i);
+                                Looper.loop();
+                            }else{
+                                Toast.makeText(Login.this, "登录失败，请重新登陆", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                            }
+
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -92,13 +105,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
-    private void printInputStream(InputStream is){
+    //void 改为 String 类型 change by cxy
+    private String printInputStream(InputStream is){
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuffer sb = new StringBuffer();
         String line = null;
         try {
             while ((line = reader.readLine()) != null) {
-                sb.append(line + "\n");
+//                sb.append(line + "\n");
+                sb.append(line);         //change by cxy
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -110,6 +125,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             }
         }
         String rs = sb.toString();
-        Log.e("登陆信息",rs);
+
+        Log.e("登陆信息",rs);    ////  在控制台输出信息 / ///
+        return rs;
     }
 }

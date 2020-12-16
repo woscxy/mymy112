@@ -4,10 +4,12 @@ package edu.dali;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -28,16 +30,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import java.io.*;
-import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Base64;
 
@@ -50,28 +43,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.Socket;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Base64;
+
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import edu.dali.data.DatabaseHelper;
 
 public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_2;
     private SharedPreferences mShared_3;
+    private SharedPreferences mShared_name;
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
@@ -354,6 +341,7 @@ public class image_album_show extends AppCompatActivity {
                                 + "AppTest"
                                 + File.separator
                                 + "PicTest_" + System.currentTimeMillis() + ".jpg";
+
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
                             file.getParentFile().mkdir();//创建文件夹
@@ -369,6 +357,30 @@ public class image_album_show extends AppCompatActivity {
                             Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！当前图片压缩率："+cp, Toast.LENGTH_LONG).show();
                             Log.d("MAIN", fileName);
 
+                            mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+                            String name = mShared_name.getString("name",null);
+                            DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);//插入图片路径进sqlite by WF
+                            SQLiteDatabase databa = dh.getWritableDatabase();
+                            //SQLdm s = new SQLdm();
+                            //SQLiteDatabase db = s.openDatabase(image_album_show.this,dh.getWritableDatabase().getPath());
+                            //String sql = "select * from user where username=?";
+                            //Cursor cursor = db.rawQuery(sql, new String[]{name});
+                            //String result = "未找到该账号";
+                            //  如果查找账号，显示其信息
+                            //if (cursor.getCount() > 0)
+                            //{
+                                //  必须使用moveToFirst方法将记录指针移动到第1条记录的位置
+                                //cursor.moveToFirst();
+                                //result = cursor.getString(cursor.getColumnIndex("username"));
+                                //Log.e("result",result);
+                            ContentValues values1 = new ContentValues();
+                            //String xm = result;
+                            values1.put("username",name);
+                            values1.put("imagU",fileName);
+                            long b=databa.insert("user",null,values1);
+                            String c=String.valueOf(b);
+                            Log.e("sqlite",c);
+                        //}
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             //e.printStackTrace();

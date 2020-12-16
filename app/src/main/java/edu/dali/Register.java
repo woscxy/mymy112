@@ -1,7 +1,9 @@
 package edu.dali;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Looper;
 
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import edu.dali.data.DatabaseHelper;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 
@@ -70,7 +74,22 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                             URLConnection urlConnection = url.openConnection();
                             InputStream in = urlConnection.getInputStream();
                             printInputStream(in);
-                            Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                            DatabaseHelper databaseHelper = new DatabaseHelper(Register.this,"personnal",null,1);//新建数据库personnal  by WF
+                            SQLiteDatabase db = databaseHelper.getWritableDatabase();
+                            String pa=db.getPath();
+                            ContentValues values = new ContentValues();
+                            String xm = regUserName.getText().toString();
+                            String psd = regPassWord.getText().toString();
+                            String sf = shenfen.getText().toString();
+                            values.put("username",xm);
+                            values.put("password",psd);
+                            values.put("shenfen",sf);
+                            long a=db.insert("user",null,values);
+                            if(a>0) {
+                                Toast.makeText(Register.this, "注册成功"+pa, Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
+                            }
                             Looper.loop();
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
