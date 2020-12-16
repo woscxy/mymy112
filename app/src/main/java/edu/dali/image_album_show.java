@@ -37,8 +37,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.net.URL;
 import java.util.Base64;
 
 import java.io.BufferedReader;
@@ -163,6 +165,8 @@ public class image_album_show extends AppCompatActivity {
         imageview=(ImageView)findViewById(R.id.V_Image);
 
 
+
+
         //把图片上传到服务器
         sendImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -175,6 +179,9 @@ public class image_album_show extends AppCompatActivity {
 
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     public void run() {
+
+
+
                         mShared_2 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
                         String addhost = mShared_2.getString("addhost","202.203.16.38");
 //                        File f = new File("D:\\img\\test.jpg");//要传输的图片路径地址
@@ -232,6 +239,9 @@ public class image_album_show extends AppCompatActivity {
 
             }
         });
+
+
+
 
         text=(TextView) findViewById(R.id.text);
         progressBar=(ProgressBar)findViewById(R.id.progressBar);
@@ -306,6 +316,8 @@ public class image_album_show extends AppCompatActivity {
 
 
     }
+
+
 
     //打开相册
     private void openAlbum() {
