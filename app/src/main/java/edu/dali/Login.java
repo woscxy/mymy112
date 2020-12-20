@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Looper;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
@@ -129,4 +130,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         Log.e("登陆信息",rs);    ////  在控制台输出信息 / ///
         return rs;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {    //返回键重写  by WF
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //启动一个意图,回到桌面
+            Intent intent = new Intent();// 创建Intent对象
+            intent.setAction(Intent.ACTION_MAIN);// 设置Intent动作
+            intent.addCategory(Intent.CATEGORY_HOME);// 设置Intent种类
+            startActivity(intent);// 将Intent传递给Activity
+            finish();
+            System.exit(0);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event); }
+
+
 }
