@@ -15,7 +15,7 @@ public class shezhi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shezhi);
 
-        ImageView sy3=(ImageView) findViewById(R.id.sy3);
+        ImageView sy3= findViewById(R.id.sy3);
         sy3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,7 +23,7 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        ImageView gn3=(ImageView) findViewById(R.id.gn3);
+        ImageView gn3= findViewById(R.id.gn3);
         gn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -31,7 +31,7 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button version=(Button) findViewById(R.id.version);
+        Button version= findViewById(R.id.version);
         version.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -39,7 +39,7 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button tongyong=(Button) findViewById(R.id.tongyong);
+        Button tongyong= findViewById(R.id.tongyong);
         tongyong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -47,7 +47,7 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button guanyu=(Button) findViewById(R.id.guanyu);
+        Button guanyu= findViewById(R.id.guanyu);
         guanyu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,7 +55,7 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button quit=(Button) findViewById(R.id.quit);
+        Button quit= findViewById(R.id.quit);
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -41,11 +41,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         setContentView(R.layout.activity_login);
 
         //初始化信息
-        username = (EditText)findViewById(R.id.username);
-        password = (EditText)findViewById(R.id.password);
-        login = (Button)findViewById(R.id.btn_login);
-        info = (TextView)findViewById(R.id.info);
-        register = (Button)findViewById(R.id.register);
+        username = findViewById(R.id.username);
+        password = findViewById(R.id.password);
+        login = findViewById(R.id.btn_login);
+        info = findViewById(R.id.info);
+        register = findViewById(R.id.register);
 
         //设置按钮监听器
         login.setOnClickListener(this);

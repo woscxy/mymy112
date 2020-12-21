@@ -17,7 +17,7 @@ public class showInformation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.xiezhu);
         String info = getIntent().getStringExtra("info");
         Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
 
@@ -81,12 +81,13 @@ public class showInformation extends AppCompatActivity {
                         .create();
                 alertDialog5.show();
                 break;
-            case "16":
+            case "6":
                 AlertDialog alertDialog6 = new AlertDialog.Builder(this)
                         .setTitle("识别结果为")//标题
                         .setMessage("食鸟蛛")//内容
                         .create();
                 alertDialog6.show();
+                setContentView(R.layout.luoxinfu);
                 url = "https://baike.baidu.com/item/%E9%A3%9F%E9%B8%9F%E8%9B%9B/3725476?fr=aladdin";
                 break;
             case "7":
@@ -95,6 +96,7 @@ public class showInformation extends AppCompatActivity {
                         .setMessage("鼠蛛")//内容
                         .create();
                 alertDialog7.show();
+                setContentView(R.layout.luoxinfu);
                 url = "https://baike.baidu.com/item/%E9%BC%A0%E8%9B%9B/8760387?fr=aladdin";
                 break;
             case "8":
@@ -103,6 +105,7 @@ public class showInformation extends AppCompatActivity {
                         .setMessage("园蛛")//内容
                         .create();
                 alertDialog8.show();
+                setContentView(R.layout.luoxinfu);
                 url = "https://baike.baidu.com/item/%E5%9C%86%E8%9B%9B";
                 break;
             case "9":
@@ -111,8 +114,10 @@ public class showInformation extends AppCompatActivity {
                         .setMessage("络新妇")//内容
                         .create();
                 alertDialog9.show();
+                setContentView(R.layout.luoxinfu);
                 url = "https://baike.baidu.com/item/%E7%BB%9C%E6%96%B0%E5%A6%87/14880545#viewPageContent";
                 break;
+
         }
 //        webView.loadUrl(url);
 

@@ -33,19 +33,18 @@
         android:roundIcon="@mipmap/ic_launcher01"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".Register"></activity>
-        <activity android:name=".MainActivity">
+        <activity android:name=".Register" android:launchMode="singleTask"></activity>
+        <activity android:name=".MainActivity" android:launchMode="singleTask"></activity>
 
-        </activity>
-        <activity android:name=".guanyuActivity" />
-        <activity android:name=".tyActivity" />
-        <activity android:name=".versionActivity" />
-        <activity android:name=".uploadActivity" />
-        <activity android:name=".image_album_show" />
-        <activity android:name=".shezhi" />
-        <activity android:name=".gongneng" />
-        <activity android:name=".showInformation" />
-        <activity android:name=".Login">
+        <activity android:name=".guanyuActivity" android:launchMode="singleTask"/>
+        <activity android:name=".tyActivity" android:launchMode="singleTask"/>
+        <activity android:name=".versionActivity" android:launchMode="singleTask"/>
+        <activity android:name=".uploadActivity" android:launchMode="singleTask"/>
+        <activity android:name=".image_album_show" android:launchMode="singleTask"/>
+        <activity android:name=".shezhi" android:launchMode="singleTask"/>
+        <activity android:name=".gongneng" android:launchMode="singleTask"/>
+        <activity android:name=".showInformation" android:launchMode="singleTask"/>
+        <activity android:name=".Login" android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <action android:name="android.media.action.IMAGE_CAPTURE" />

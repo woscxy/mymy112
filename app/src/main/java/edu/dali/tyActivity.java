@@ -22,12 +22,12 @@ public class tyActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ty);
-        makesure=(Button) findViewById(R.id.makesure);
-        cpButton=(Button) findViewById(R.id.cpButton);
+        makesure= findViewById(R.id.makesure);
+        cpButton= findViewById(R.id.cpButton);
         makesure.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                host=(EditText) findViewById(R.id.host);
+                host= findViewById(R.id.host);
                 mShared = getSharedPreferences("setting_info", MODE_PRIVATE);
                 String addhost = host.getText().toString();
                 SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
@@ -40,7 +40,7 @@ public class tyActivity extends AppCompatActivity {
         cpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                compress=(EditText) findViewById(R.id.compress);
+                compress= findViewById(R.id.compress);
                 mShared1 = getSharedPreferences("setting_info", MODE_PRIVATE);
                 String cp = compress.getText().toString();
                 SharedPreferences.Editor editor = mShared1.edit(); // 获得编辑器对象

@@ -22,8 +22,8 @@ public class gongneng extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gongneng);
-        Button takePhoto = (Button) findViewById(R.id.take_photo);
-        Button xiangce = (Button) findViewById(R.id.xiangce);
+        Button takePhoto = findViewById(R.id.take_photo);
+        Button xiangce = findViewById(R.id.xiangce);
         takePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,7 +56,7 @@ public class gongneng extends AppCompatActivity {
 
 
 
-        ImageView sy2=(ImageView) findViewById(R.id.sy2);
+        ImageView sy2= findViewById(R.id.sy2);
         sy2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +64,7 @@ public class gongneng extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        ImageView sz2=(ImageView) findViewById(R.id.sz2);
+        ImageView sz2= findViewById(R.id.sz2);
         sz2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

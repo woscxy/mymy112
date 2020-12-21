@@ -156,13 +156,13 @@ public class image_album_show extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_album_show);
-        picture = (ImageView) findViewById(R.id.V_Image);
-        Return_page=(Button)findViewById(R.id.Return_Back_to_page1);
+        picture = findViewById(R.id.V_Image);
+        Return_page= findViewById(R.id.Return_Back_to_page1);
         bundle = this.getIntent().getExtras();
         Show_Choice=bundle.getInt("id");
 
-        sendImage=(Button)findViewById(R.id.upload);
-        imageview=(ImageView)findViewById(R.id.V_Image);
+        sendImage= findViewById(R.id.upload);
+        imageview= findViewById(R.id.V_Image);
 
 
 
@@ -197,7 +197,7 @@ public class image_album_show extends AppCompatActivity {
                         try {
                             Socket socket = new Socket(host, port);
                             OutputStream os =  socket.getOutputStream();
-                            FileInputStream fis = new FileInputStream(f);
+                            FileInputStream fis = new FileInputStream(f);  //读取照片 超声
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             int length = 0;
                             byte[] sendBytes = new byte[1024*1024];
@@ -205,6 +205,7 @@ public class image_album_show extends AppCompatActivity {
                                 baos.write(sendBytes, 0, length);
                             }
                             baos.flush();
+
                             PrintWriter pw = new PrintWriter(os);
                             pw.write(Base64.getEncoder().encodeToString(baos.toByteArray()));
                             pw.flush();
@@ -212,20 +213,36 @@ public class image_album_show extends AppCompatActivity {
                             InputStream is = socket.getInputStream();
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
                             String info = br.readLine();
-//                            Toast.makeText(image_album_show.this, info, Toast.LENGTH_SHORT).show();
+                            while(true){
 
+                                if(info !=null){
+                                    break;
+                                }
+                                info = br.readLine();
+                                sleep(10);
+                            }
+
+//                            Toast.makeText(image_album_show.this, info, Toast.LENGTH_SHORT).show();
                             socket.close();
                             os.close();
                             fis.close();
                             pw.close();
                             baos.close();
 
-                            Intent intent = new Intent();
-                            intent.putExtra("info",info);
-                            intent.setClass(image_album_show.this, showInformation.class);
-                            startActivity(intent);
+//                            Log.e("登陆信息",info);    ////  在控制台输出信息 / ///
+                            if(info != null){
+                                Intent intent = new Intent();
+                                intent.putExtra("info",info);
+                                intent.setClass(image_album_show.this, showInformation.class);
+                                startActivity(intent);
+                            }else{
+                                Log.e("接收数据","info为null");    ////  在控制台输出信息 / ///
+                                Log.e("登陆信息",info);    ////  在控制台输出信息 / ///
+                            }
 
-                        } catch (IOException e) {
+
+                        } catch (IOException | InterruptedException e) {
+                            Log.e("接收数据","错误");    ////  在控制台输出信息 / ///
                             e.printStackTrace();
                         }
 //                        Toast.makeText(image_album_show.this, "You denied the permission", Toast.LENGTH_SHORT).show();
@@ -243,8 +260,8 @@ public class image_album_show extends AppCompatActivity {
 
 
 
-        text=(TextView) findViewById(R.id.text);
-        progressBar=(ProgressBar)findViewById(R.id.progressBar);
+        text= findViewById(R.id.text);
+        progressBar= findViewById(R.id.progressBar);
 
 
         //

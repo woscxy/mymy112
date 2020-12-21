@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        ImageView gn1=(ImageView) findViewById(R.id.gn1);
+        ImageView gn1= findViewById(R.id.gn1);
         gn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        ImageView sz1=(ImageView) findViewById(R.id.sz1);
+        ImageView sz1= findViewById(R.id.sz1);
         sz1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

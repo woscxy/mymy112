@@ -38,11 +38,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
 
         //初始化
-        regUserName = (EditText)findViewById(R.id.regUserName);
-        regPassWord = (EditText)findViewById(R.id.regPassWord);
-        shenfen = (EditText)findViewById(R.id.shenfen);
-        btn_reg = (Button)findViewById(R.id.btn_reg);
-        fanhui = (Button)findViewById(R.id.fanhui);
+        regUserName = findViewById(R.id.regUserName);
+        regPassWord = findViewById(R.id.regPassWord);
+        shenfen = findViewById(R.id.shenfen);
+        btn_reg = findViewById(R.id.btn_reg);
+        fanhui = findViewById(R.id.fanhui);
         fanhui.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,6 +62,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     @Override
                     public void run() {
                         try {
+
+
                             Looper.prepare();
                             String path = "http://202.203.16.38:8080/HelloWeb/RegLet" + "?username=" + regUserName.getText() + "&password=" + regPassWord.getText()+ "&shenfen=" + shenfen.getText();
                             URL url = new URL(path);
