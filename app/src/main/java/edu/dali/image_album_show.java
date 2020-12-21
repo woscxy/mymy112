@@ -359,7 +359,7 @@ public class image_album_show extends AppCompatActivity {
 
                             mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
                             String name = mShared_name.getString("name",null);
-                            DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);//插入图片路径进sqlite by WF
+                            DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);  //插入图片路径进sqlite by WF
                             SQLiteDatabase databa = dh.getWritableDatabase();
                             //SQLdm s = new SQLdm();
                             //SQLiteDatabase db = s.openDatabase(image_album_show.this,dh.getWritableDatabase().getPath());
