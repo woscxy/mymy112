@@ -5,10 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+
 import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Base64;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class uploadActivity extends AppCompatActivity {
 
@@ -54,6 +63,44 @@ public class uploadActivity extends AppCompatActivity {
         }
 
     }
+
+
+    // 我的返回数据组成为　data，return_code mesg
+    public Object httpsPostImgRequest( String url,String path ){
+        File file =new File(path);
+        try {
+            OkHttpClient okHttpClient = new OkHttpClient();
+
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .setType(MultipartBody.FORM)
+                    // 此处可添加上传 参数
+                    // photoFile 表示上传参数名,logo.png 表示图片名字
+                    .addFormDataPart("photoFile", "logo.png",
+                            RequestBody.create(MediaType.parse("multipart/form-data"), file))//文件
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(requestBody)
+                    .build();
+            Response response = okHttpClient.newCall(request).execute();
+
+            String requestData = response.body().string();
+            // 信息打印 是否是服务器返回的数据 ， 默认即便是空值，对象也存在值为""
+            if (requestData.contains("data")){
+                Log.d("returnInfo", " 口令：" + requestData);
+                return requestData;
+            }else{
+                requestData = response.body().toString();
+                Log.d( "returnInfo" , ""+ requestData  );
+                return requestData;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
 

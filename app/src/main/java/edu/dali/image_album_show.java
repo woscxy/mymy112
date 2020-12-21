@@ -173,7 +173,6 @@ public class image_album_show extends AppCompatActivity {
 
 //                        String host = "nswz.dali.edu.cn"; //            地址要写对              //
                         int port =8083;
-
                         try {
                             Socket socket = new Socket(host, port);
                             OutputStream os =  socket.getOutputStream();
