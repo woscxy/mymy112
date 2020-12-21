@@ -4,35 +4,77 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:id="@+id/textView_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="注册信息"
+        android:textColor="@android:color/holo_blue_light"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginRight="60dp" />
 
     <EditText
         android:id="@+id/regUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="注册账号"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="60dp"
+        android:hint="注册账号"
+        android:paddingLeft="15dp" />
+
     <EditText
         android:id="@+id/regPassWord"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="60dp"
         android:hint="密码"
-        />
+        android:paddingLeft="15dp" />
+
     <EditText
         android:id="@+id/shenfen"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="身份"
-        />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="60dp"
+        android:hint="确认密码"
+        android:paddingLeft="15dp" />
+
     <Button
-        android:text="注册"
         android:id="@+id/btn_reg"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <Button
-        android:text="返回"
-        android:id="@+id/fanhui"
-        android:layout_gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"/>
+        android:layout_gravity="center"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="57dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="注册"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textView_back_to_login"
+        android:layout_width="106dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="260dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:text="您有账户了？" />
+
+<!--    <Button-->
+<!--        android:text="返回"-->
+<!--        android:id="@+id/fanhui"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="10dp"/>-->
+
+
 </LinearLayout>
