@@ -2,37 +2,80 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@mipmap/login"
     android:orientation="vertical">
+
+<!--    <TextView-->
+<!--        android:id="@+id/textView2_login"-->
+<!--        style="@android:style/Widget.TextView.PopupMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="140dp"-->
+<!--        android:layout_marginTop="170dp"-->
+<!--        android:layout_marginRight="60dp"-->
+<!--        android:text="登陆信息"-->
+<!--        android:textColor="@android:color/holo_blue_light"-->
+<!--        android:textSize="30dp"-->
+<!--        android:textStyle="bold" />-->
 
     <EditText
         android:id="@+id/username"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="380dp"
         android:hint="请输入账号"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:paddingLeft="15dp"
+        android:textColorHint="@android:color/background_light" />
 
     <EditText
         android:id="@+id/password"
-        android:hint="请输入密码"
-        android:layout_width="match_parent"
+        android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"/>
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginRight="60dp"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:paddingLeft="15dp"
+        android:textColorHint="@android:color/background_light" />
 
     <Button
-        android:text="登陆"
         android:id="@+id/btn_login"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginRight="60dp"
+        android:background="@android:color/holo_blue_light"
+        android:text="登陆"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="190dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="50dp"
+        android:text="你还没有账户吗？"
+        android:textColor="@android:color/background_light" />
 
     <TextView
         android:id="@+id/info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="106dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="5dp"
         android:text="登陆信息"
-        android:visibility="invisible"/>
-    <Button
-        android:text="你还没有账号吗？"
-        android:id="@+id/register"
-        android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:visibility="invisible" />
+
+    <!--    <Button-->
+    <!--        android:text="你还没有账号吗？"-->
+    <!--        android:id="@+id/register"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content" />-->
 </LinearLayout>

@@ -30,12 +30,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private EditText password;
     private Button login;
     private TextView info;
-    private Button register;
+    //private Button register;
+    private TextView register;
     //提示框
     private ProgressDialog dialog;
     //服务器返回的数据
     private String infoString;
     private SharedPreferences mShared;
+    public String name,passwords;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         password = (EditText)findViewById(R.id.password);
         login = (Button)findViewById(R.id.btn_login);
         info = (TextView)findViewById(R.id.info);
-        register = (Button)findViewById(R.id.register);
+        register = (TextView) findViewById(R.id.register);
 
         //设置按钮监听器
         login.setOnClickListener(this);
         register.setOnClickListener(this);
-
     }
 
     @Override
@@ -60,44 +61,61 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_login:
                 //设置提示框
-
-
                 //设置子线程，分别进行Get和Post传输数据
-                new Thread() {
-                    @Override
-                    public void run() {
-                        try {
-                            Looper.prepare();
-                            //登录服务器地址  update by WF
-                            String path = "http://202.203.16.38:8080/HelloWeb/LogLet" + "?username=" + username.getText() + "&password=" + password.getText();
-                            URL url = new URL(path);
-                            URLConnection urlConnection = url.openConnection();
-                            InputStream in = urlConnection.getInputStream();
-                            String info = printInputStream(in);   //输出到控制台 并得到后台返回的信息 change by cxy
-                            int isSuccess = Integer.parseInt(info);
-                            if(isSuccess == 1){
-                                mShared = getSharedPreferences("name_info", MODE_PRIVATE);
-                                String name = username.getText().toString();
-                                SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
-                                editor.putString("name",name); // 添加一个名叫name的字符串参数
-                                editor.apply();
-                                Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                Intent i=new Intent(Login.this,MainActivity.class);
-                                startActivity(i);
-                                Looper.loop();
-                            }else{
-                                Toast.makeText(Login.this, "登录失败，请重新登陆", Toast.LENGTH_SHORT).show();
-                                Looper.loop();
+                //cahnge by psc
+                name=username.getText().toString();
+                passwords=password.getText().toString();
+                if(name.isEmpty()){
+                    username.setError("您的姓名不能为空！");
+                    username.requestFocus();
+                    return;
+                }
+                else if(passwords.isEmpty()){
+                    password.setError("您的密码不能为空！");
+                    password.requestFocus();
+                    return;
+                }
+                else if(passwords.length()<6){
+                    password.setError("您的密码不能小于六位!");
+                    password.requestFocus();
+                    return;
+                }
+                else{//change by psc
+                    new Thread() {
+                        @Override
+                        public void run() {
+                            try {
+                                Looper.prepare();
+                                //登录服务器地址  update by WF
+                                String path = "http://202.203.16.38:8080/HelloWeb/LogLet" + "?username=" + username.getText() + "&password=" + password.getText();
+                                URL url = new URL(path);
+                                URLConnection urlConnection = url.openConnection();
+                                InputStream in = urlConnection.getInputStream();
+                                String info = printInputStream(in);   //输出到控制台 并得到后台返回的信息 change by cxy
+                                int isSuccess = Integer.parseInt(info);
+                                if(isSuccess == 1){
+                                    mShared = getSharedPreferences("name_info", MODE_PRIVATE);
+                                    String name = username.getText().toString();
+                                    SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
+                                    editor.putString("name",name); // 添加一个名叫name的字符串参数
+                                    editor.apply();
+                                    Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                    Intent i=new Intent(Login.this,MainActivity.class);
+                                    startActivity(i);
+                                    Looper.loop();
+                                }else{
+                                    Toast.makeText(Login.this, "登录失败，请重新登陆", Toast.LENGTH_SHORT).show();
+                                    Looper.loop();
+                                }
+
+                            } catch (MalformedURLException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
                         }
-                    }
-                }.start();
-
+                    }.start();
+                }
                 break;
             case R.id.register:
                 //跳转注册页面
