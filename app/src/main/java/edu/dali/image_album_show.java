@@ -4,10 +4,12 @@ package edu.dali;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
@@ -28,19 +30,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
 
-import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.net.URL;
 import java.util.Base64;
 
 import java.io.BufferedReader;
@@ -52,28 +43,22 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.Socket;
-import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
+
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Base64;
+
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+
+import edu.dali.data.DatabaseHelper;
 
 public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_2;
     private SharedPreferences mShared_3;
+    private SharedPreferences mShared_name;
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
@@ -156,15 +141,13 @@ public class image_album_show extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_album_show);
-        picture = findViewById(R.id.V_Image);
-        Return_page= findViewById(R.id.Return_Back_to_page1);
+        picture = (ImageView) findViewById(R.id.V_Image);
+        Return_page=(Button)findViewById(R.id.Return_Back_to_page1);
         bundle = this.getIntent().getExtras();
         Show_Choice=bundle.getInt("id");
 
-        sendImage= findViewById(R.id.upload);
-        imageview= findViewById(R.id.V_Image);
-
-
+        sendImage=(Button)findViewById(R.id.upload);
+        imageview=(ImageView)findViewById(R.id.V_Image);
 
 
         //把图片上传到服务器
@@ -179,9 +162,6 @@ public class image_album_show extends AppCompatActivity {
 
                     @RequiresApi(api = Build.VERSION_CODES.O)
                     public void run() {
-
-
-
                         mShared_2 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
                         String addhost = mShared_2.getString("addhost","202.203.16.38");
 //                        File f = new File("D:\\img\\test.jpg");//要传输的图片路径地址
@@ -197,7 +177,7 @@ public class image_album_show extends AppCompatActivity {
                         try {
                             Socket socket = new Socket(host, port);
                             OutputStream os =  socket.getOutputStream();
-                            FileInputStream fis = new FileInputStream(f);  //读取照片 超声
+                            FileInputStream fis = new FileInputStream(f);
                             ByteArrayOutputStream baos = new ByteArrayOutputStream();
                             int length = 0;
                             byte[] sendBytes = new byte[1024*1024];
@@ -205,7 +185,6 @@ public class image_album_show extends AppCompatActivity {
                                 baos.write(sendBytes, 0, length);
                             }
                             baos.flush();
-
                             PrintWriter pw = new PrintWriter(os);
                             pw.write(Base64.getEncoder().encodeToString(baos.toByteArray()));
                             pw.flush();
@@ -213,36 +192,20 @@ public class image_album_show extends AppCompatActivity {
                             InputStream is = socket.getInputStream();
                             BufferedReader br = new BufferedReader(new InputStreamReader(is));
                             String info = br.readLine();
-                            while(true){
-
-                                if(info !=null){
-                                    break;
-                                }
-                                info = br.readLine();
-                                sleep(10);
-                            }
-
 //                            Toast.makeText(image_album_show.this, info, Toast.LENGTH_SHORT).show();
+
                             socket.close();
                             os.close();
                             fis.close();
                             pw.close();
                             baos.close();
 
-//                            Log.e("登陆信息",info);    ////  在控制台输出信息 / ///
-                            if(info != null){
-                                Intent intent = new Intent();
-                                intent.putExtra("info",info);
-                                intent.setClass(image_album_show.this, showInformation.class);
-                                startActivity(intent);
-                            }else{
-                                Log.e("接收数据","info为null");    ////  在控制台输出信息 / ///
-                                Log.e("登陆信息",info);    ////  在控制台输出信息 / ///
-                            }
+                            Intent intent = new Intent();
+                            intent.putExtra("info",info);
+                            intent.setClass(image_album_show.this, showInformation.class);
+                            startActivity(intent);
 
-
-                        } catch (IOException | InterruptedException e) {
-                            Log.e("接收数据","错误");    ////  在控制台输出信息 / ///
+                        } catch (IOException e) {
                             e.printStackTrace();
                         }
 //                        Toast.makeText(image_album_show.this, "You denied the permission", Toast.LENGTH_SHORT).show();
@@ -257,11 +220,8 @@ public class image_album_show extends AppCompatActivity {
             }
         });
 
-
-
-
-        text= findViewById(R.id.text);
-        progressBar= findViewById(R.id.progressBar);
+        text=(TextView) findViewById(R.id.text);
+        progressBar=(ProgressBar)findViewById(R.id.progressBar);
 
 
         //
@@ -334,8 +294,6 @@ public class image_album_show extends AppCompatActivity {
 
     }
 
-
-
     //打开相册
     private void openAlbum() {
         Intent intent = new Intent("android.intent.action.GET_CONTENT");
@@ -383,6 +341,7 @@ public class image_album_show extends AppCompatActivity {
                                 + "AppTest"
                                 + File.separator
                                 + "PicTest_" + System.currentTimeMillis() + ".jpg";
+
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
                             file.getParentFile().mkdir();//创建文件夹
@@ -398,6 +357,30 @@ public class image_album_show extends AppCompatActivity {
                             Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！当前图片压缩率："+cp, Toast.LENGTH_LONG).show();
                             Log.d("MAIN", fileName);
 
+                            mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+                            String name = mShared_name.getString("name",null);
+                            DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);//插入图片路径进sqlite by WF
+                            SQLiteDatabase databa = dh.getWritableDatabase();
+                            //SQLdm s = new SQLdm();
+                            //SQLiteDatabase db = s.openDatabase(image_album_show.this,dh.getWritableDatabase().getPath());
+                            //String sql = "select * from user where username=?";
+                            //Cursor cursor = db.rawQuery(sql, new String[]{name});
+                            //String result = "未找到该账号";
+                            //  如果查找账号，显示其信息
+                            //if (cursor.getCount() > 0)
+                            //{
+                                //  必须使用moveToFirst方法将记录指针移动到第1条记录的位置
+                                //cursor.moveToFirst();
+                                //result = cursor.getString(cursor.getColumnIndex("username"));
+                                //Log.e("result",result);
+                            ContentValues values1 = new ContentValues();
+                            //String xm = result;
+                            values1.put("username",name);
+                            values1.put("imagU",fileName);
+                            long b=databa.insert("user",null,values1);
+                            String c=String.valueOf(b);
+                            Log.e("sqlite",c);
+                        //}
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             //e.printStackTrace();

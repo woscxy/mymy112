@@ -3,13 +3,14 @@ package edu.dali;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
 public class shezhi extends AppCompatActivity {
-
+    private SharedPreferences mShared_quit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,10 @@ public class shezhi extends AppCompatActivity {
         quit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mShared_quit = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+                SharedPreferences.Editor editor = mShared_quit.edit();//退出账号登录  by WF
+                editor.remove("name");
+                editor.commit();
                 Intent i=new Intent(shezhi.this,Login.class);
                 startActivity(i);
             }

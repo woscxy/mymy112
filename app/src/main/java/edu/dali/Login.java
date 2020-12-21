@@ -3,9 +3,11 @@ package edu.dali;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Looper;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
@@ -33,7 +35,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private ProgressDialog dialog;
     //服务器返回的数据
     private String infoString;
-
+    private SharedPreferences mShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         switch (view.getId()){
             case R.id.btn_login:
                 //设置提示框
+
+
                 //设置子线程，分别进行Get和Post传输数据
                 new Thread() {
                     @Override
@@ -72,6 +76,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                             String info = printInputStream(in);   //输出到控制台 并得到后台返回的信息 change by cxy
                             int isSuccess = Integer.parseInt(info);
                             if(isSuccess == 1){
+                                mShared = getSharedPreferences("name_info", MODE_PRIVATE);
+                                String name = username.getText().toString();
+                                SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
+                                editor.putString("name",name); // 添加一个名叫name的字符串参数
+                                editor.apply();
                                 Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
                                 Intent i=new Intent(Login.this,MainActivity.class);
                                 startActivity(i);
@@ -97,7 +106,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 break;
         }
     }
-
     //void 改为 String 类型 change by cxy
     private String printInputStream(InputStream is){
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -122,4 +130,20 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         Log.e("登陆信息",rs);    ////  在控制台输出信息 / ///
         return rs;
     }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {    //返回键重写  by WF
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            //启动一个意图,回到桌面
+            Intent intent = new Intent();// 创建Intent对象
+            intent.setAction(Intent.ACTION_MAIN);// 设置Intent动作
+            intent.addCategory(Intent.CATEGORY_HOME);// 设置Intent种类
+            startActivity(intent);// 将Intent传递给Activity
+            finish();
+            System.exit(0);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event); }
+
+
 }
