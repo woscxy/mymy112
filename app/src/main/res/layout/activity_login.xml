@@ -18,23 +18,27 @@
 <!--        android:textSize="30dp"-->
 <!--        android:textStyle="bold" />-->
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
     <EditText
         android:id="@+id/username"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="380dp"
+        android:layout_gravity="center"
+        android:textColor="@android:color/background_light"
         android:hint="请输入账号"
         android:paddingLeft="15dp"
         android:textColorHint="@android:color/background_light" />
 
     <EditText
         android:id="@+id/password"
+        android:layout_gravity="center"
         android:layout_width="310dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
         android:layout_marginTop="9dp"
-        android:layout_marginRight="60dp"
+        android:textColor="@android:color/background_light"
         android:hint="请输入密码"
         android:inputType="textPassword"
         android:paddingLeft="15dp"
@@ -42,24 +46,22 @@
 
     <Button
         android:id="@+id/btn_login"
-        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginRight="60dp"
+        android:layout_marginBottom="10dp"
         android:background="@android:color/holo_blue_light"
         android:text="登陆"
         android:textSize="20dp"
-        android:textStyle="bold"
-        />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/register"
-        android:layout_width="match_parent"
+        android:layout_width="143dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="190dp"
+        android:layout_marginLeft="240dp"
         android:layout_marginTop="10dp"
-        android:layout_marginRight="50dp"
+        android:layout_marginRight="25dp"
         android:text="你还没有账户吗？"
         android:textColor="@android:color/background_light" />
 
@@ -68,9 +70,14 @@
         android:layout_width="106dp"
         android:layout_height="39dp"
         android:layout_marginLeft="140dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="4dp"
         android:text="登陆信息"
         android:visibility="invisible" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1" />
 
     <!--    <Button-->
     <!--        android:text="你还没有账号吗？"-->

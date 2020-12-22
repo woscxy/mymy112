@@ -112,7 +112,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     values.put("shenfen",sf);
                                     long a=db.insert("user",null,values);
                                     if(a>0) {
-                                        Toast.makeText(Register.this, "注册成功"+pa, Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
                                     }else{
                                         Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
                                     }

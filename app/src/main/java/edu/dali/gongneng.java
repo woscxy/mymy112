@@ -3,6 +3,7 @@ package edu.dali;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
@@ -11,17 +12,27 @@ import androidx.core.content.FileProvider;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class gongneng extends AppCompatActivity {
     public static final int TAKE_PHOTO = 1;
     public static final int CHOOSE_PHOTO = 2;
-
+    private SharedPreferences mShared_login;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gongneng);
+
+        mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+        String name = mShared_login.getString("name","");//登录信息保存  by WF
+        if(name==""){
+            Toast.makeText(gongneng.this, "请登录啊", Toast.LENGTH_SHORT).show();
+            Intent i=new Intent(gongneng.this,Login.class);
+            startActivity(i);
+        }
+
         Button takePhoto = findViewById(R.id.take_photo);
         Button xiangce = findViewById(R.id.xiangce);
         takePhoto.setOnClickListener(new View.OnClickListener() {
@@ -68,7 +79,7 @@ public class gongneng extends AppCompatActivity {
         sz2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(gongneng.this,shezhi.class);
+                Intent i=new Intent(gongneng.this,my.class);
                 startActivity(i);
             }
         });

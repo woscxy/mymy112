@@ -6,13 +6,16 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     tools:context=".MainActivity"
     >
+
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scrollbars="vertical"
         android:fadingEdge="vertical">
+
 <LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
@@ -21,32 +24,57 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="物种图像采集"
-        android:textSize="14sp"
+        android:text="蜘识"
+        android:textSize="20sp"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:background="#000000"
+        android:textColor="#495060"
+        android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="233dp"
-        android:background="@mipmap/panda"
-        android:layout_marginTop="5dp"/>
+        android:background="@mipmap/first_page" />
 
 <TextView
     android:layout_width="match_parent"
-    android:layout_height="300dp"
-    android:text="      野外图像采集APP的设计与实现，不仅解决物种识别中缺少动物识别的问题，还涉及到改进新的压缩及传输算法，APP的设计也方便使用手机相机进行采集，合理的解决图像识别中图像采集所存在的大部分问题，为野外物种爱好者提供了功能较为全面的识别平台，也发展了野外物种图像采集处理技术。研究基于嵌入式系统的图像采集处理技术对图像采集处理系统向微型化、网络化、智能化发展具有重要的意义。"
-    android:textSize="14sp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
+    android:background="#ffffff"
+    android:layout_height="wrap_content"
+    android:text="      蜘识是大理大学数学与计算机学院人工智能研究团队利用深度学习技术，基于昆虫生物医药研究院（大理大学）分类图库及用户共建图库开发的蜘蛛识别软件。本版本暂时能识别5种蜘蛛物种，随着分类图库的进一步完善及用户的广泛使用，其识别能力还能不断提升。"
+    android:textSize="18dp"
     android:layout_margin="5dp"
     />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#ffffff"
+        android:layout_height="wrap_content"
+        android:text="    V1.0功能:  "
+        android:textSize="18dp"
+        android:layout_margin="5dp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:background="#ffffff"
+        android:layout_height="300dp"
+        android:text="    识别蟹蛛、鼠蛛、园蛛、食鸟蛛、络新妇5个物种。"
+        android:textSize="18dp"
+        android:layout_margin="5dp"
+        />
 </LinearLayout>
     </ScrollView>
+
+
     <LinearLayout
         android:background="#ffffff"
         android:layout_width="match_parent"
@@ -66,7 +94,7 @@
                 android:id="@+id/sy1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/shouye"
+                android:background="@mipmap/home"
                 android:layout_gravity="center"
                 >
             </ImageView>
@@ -91,14 +119,14 @@
                 android:id="@+id/gn1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/gongneng"
+                android:background="@mipmap/search_0"
                 android:layout_gravity="center"
                 >
             </ImageView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=" 功能 "
+                android:text=" 识别 "
                 android:gravity="center"
                 android:textSize="11sp"
                 android:textColor="#000000"
@@ -116,14 +144,14 @@
                 android:id="@+id/sz1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:background="@mipmap/shezhi"
+                android:background="@mipmap/profile_0"
                 android:layout_gravity="center"
                 >
             </ImageView>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=" 设置 "
+                android:text=" 我的 "
                 android:gravity="center"
                 android:textSize="11sp"
                 android:textColor="#000000"

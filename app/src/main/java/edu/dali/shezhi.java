@@ -14,7 +14,7 @@ public class shezhi extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shezhi);
+        setContentView(R.layout.activity_setting);
 
         ImageView sy3= findViewById(R.id.sy3);
         sy3.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +29,15 @@ public class shezhi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(shezhi.this,gongneng.class);
+                startActivity(i);
+            }
+        });
+
+        ImageView sz3= findViewById(R.id.sz3);
+        sz3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(shezhi.this,my.class);
                 startActivity(i);
             }
         });

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".versionActivity"
+    android:orientation="vertical"
+    android:background="#ffffff"
+    android:padding="5px">
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:scrollbars="vertical"
+    android:fadingEdge="vertical"
+    >
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/text_my"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="关于我们"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:textColor="#495060"
+            android:background="#ffffff"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/ima"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="fitStart"
+                android:background="@mipmap/about_my_bc_1" />
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:text=" "
+            android:textSize="20sp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="    蜘识是大理大学数学与计算机学院人工智能研究团队利用深度学习技术，基于昆虫生物医药研究院（大理大学）分类图库及用户共建图库开发的蜘蛛识别软件。本版本暂时能识别5种蜘蛛物种，随着分类图库的进一步完善及用户的广泛使用，其识别能力还能不断提升。
+蜘识努力追求蜘蛛物种分类及描述的准确性、科学性和实用性；由大量用户产生的植物大数据平台也能够为多样性调查、区域物种分布、生物病虫害防治、蛛形物种药物研发等提供数据支撑。
+本APP适合农林工作者、蛛形物种爱好者、科研机构等。对于普通用户，无论你在公园、学校或野外，只需一拍照片就可认识蜘蛛，让你在亲近大自然的同时，更能了解身边的蜘蛛物种。对于数据采集员，只需简单操作上传物种图像数据至样本数据库。对于科研机构，本APP可辅助完成物种图像数据采集、物种辅助分类鉴定等专业工作。
+   "
+            android:textSize="14sp"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" 联系我们:"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="       官方网站：wzsb.dali.edu.cn"
+                android:textSize="14sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="       QQ用户交流群：662140230"
+                android:textSize="14sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="       官方邮箱：wzsb_dlu@163.com"
+                android:textSize="14sp"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="研发团队："
+            android:textSize="20sp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/wang_jm"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="wang_jm"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/xiangyu"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="chenxy"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/yuhang"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="yuhang"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+
+
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+
+
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/chenyang"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="chenyang"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/zhegnkun"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="zhegnkun"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/wangfa"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="wangfa"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                >
+                <Button
+                    android:layout_gravity="center"
+                    android:layout_width="50sp"
+                    android:layout_height="50sp"
+                    android:textColor="#495060"
+                    android:background="@mipmap/sichen"
+                    />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="sichen"
+                    android:textSize="14sp"
+                    android:layout_gravity="center"
+                    ></TextView>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="26dp"
+            >
+            <Button
+                android:layout_gravity="center"
+                android:layout_width="50sp"
+                android:layout_height="50sp"
+                android:textColor="#495060"
+                android:background="@mipmap/yang_zz"
+
+                android:layout_weight="1"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="yang"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                ></TextView>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:textSize="20sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="  致谢："
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="
+  V1.0的开发，获得了大理大学数学与计算机学院、昆虫生物医药研究院大部分专家、研究生及本科生的热心帮助。他们花费了大量时间帮助蜘识人工分类鉴定、编辑蜘蛛百科，提供了数据支撑，在此一并致谢。感谢一路有你，并请持续关注、宣传蜘识！
+"
+            android:textSize="20sp"/>
+
+    </LinearLayout>
+
+
+</ScrollView>
+
+
+
+
+
+
+
+</LinearLayout>

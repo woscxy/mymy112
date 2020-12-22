@@ -6,45 +6,64 @@
     android:layout_height="match_parent"
     tools:context=".versionActivity"
     android:orientation="vertical"
+    android:background="#ffffff"
     android:padding="5px">
 
     <TextView
+        android:id="@+id/text_my"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="物种图像采集"
-        android:textSize="14sp"
+        android:text="传输设置"
+        android:textSize="20sp"
         android:gravity="center"
-        android:textColor="#ffffff"
-        android:background="#000000"
+        android:textColor="#495060"
+        android:background="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:textSize="20sp">
 
+    </TextView>
     <EditText
     android:id="@+id/host"
     android:layout_width="411dp"
+    android:paddingLeft="15dp"
     android:layout_height="wrap_content"
     android:hint="设置Host"
     android:text=""/>
     <Button
         android:id="@+id/makesure"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="点击确认使用Host" />
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textColor="#495060"
+        android:background="#eddffc"
+        android:textSize="20sp"
+        android:text="确定" />
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="45dp" />
+        android:layout_height="20dp" />
     <EditText
         android:id="@+id/compress"
         android:layout_width="411dp"
         android:layout_height="wrap_content"
+        android:paddingLeft="15dp"
         android:hint="设置压缩率（在1-100之间，数值越小压缩效果越好）"
         android:text=""/>
     <Button
         android:id="@+id/cpButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确认" />
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:textColor="#495060"
+        android:background="#eddffc"
+        android:textSize="20sp"
+        android:text="确定" />
 </LinearLayout>

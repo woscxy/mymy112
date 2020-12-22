@@ -100,7 +100,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                     editor.putString("name",name); // 添加一个名叫name的字符串参数
                                     editor.apply();
                                     Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                    Intent i=new Intent(Login.this,MainActivity.class);
+                                    Intent i=new Intent(Login.this,gongneng.class);
                                     startActivity(i);
                                     Looper.loop();
                                 }else{
