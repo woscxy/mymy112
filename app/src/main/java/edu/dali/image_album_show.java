@@ -398,6 +398,11 @@ public class image_album_show extends AppCompatActivity {
                 break;
 
             case 2:
+                if(resultCode == RESULT_CANCELED){
+                    Toast.makeText(image_album_show.this, "您取消了查看相册图片！", Toast.LENGTH_LONG).show();
+                    Intent i=new Intent(image_album_show.this,gongneng.class);
+                    startActivity(i);
+                }else {
             if(data==null)
                 return;
                 // 判断手机系统版本号
@@ -408,7 +413,7 @@ public class image_album_show extends AppCompatActivity {
                 } else {
                     // 4.4以下系统使用这个方法处理图片
                     handleImageBeforeKitKat(data);
-                }
+                }}
                 break;
             default:
                 break;
