@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="#dde0fa"
-            android:text="上传至服务器"
+            android:text="上传并识别"
             android:layout_weight="1"/>
     </LinearLayout>
     <TextView

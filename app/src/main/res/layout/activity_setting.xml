@@ -34,7 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:backgroundTint="@color/cardview_light_background"
-        android:text="关于蜘识"
+        android:text="更新说明"
         android:textSize="20sp"
         android:textColor="#495060"
         android:gravity="left"

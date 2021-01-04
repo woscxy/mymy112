@@ -48,7 +48,7 @@
             android:layout_height="100dp"
             android:textColor="#495060"
             android:layout_weight="1"
-            android:background="@drawable/btn_corner_take_photo"
+            android:background="@mipmap/take_photo"
             android:textSize="14sp"
             />
         <TextView
@@ -69,7 +69,7 @@
             android:layout_toRightOf="@+id/take_photo"
             android:textSize="14sp"
             android:textColor="#495060"
-            android:background="@drawable/btn_corner_get_photo"
+            android:background="@mipmap/get_photo"
             />
             <TextView
                 android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text=" 设置 "
+                android:text=" 我的 "
                 android:gravity="center"
                 android:textSize="11sp"
                 android:textColor="#000000"

@@ -19,7 +19,7 @@ public class showInformation extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.xiezhu);
         String info = getIntent().getStringExtra("info");
-        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, info, Toast.LENGTH_SHORT).show();            //显示传输过来的信息
 
 //        WebView webView = (WebView) findViewById(R.id.webView01);
 //        TextView setResult = (TextView) findViewById(R.id.setResult) ;

@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.FileNotFoundException;
 import java.net.Socket;
 import java.util.Base64;
 
@@ -54,11 +56,21 @@ import java.io.FileOutputStream;
 import android.os.AsyncTask;
 
 import edu.dali.data.DatabaseHelper;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_2;
     private SharedPreferences mShared_3;
     private SharedPreferences mShared_name;
+    private int LoadingAsyncTaskisSuccess = -1;         //更新上传进度条，-1为重置上传进度条 正常上传，0为上传失败，1为上传成功 add by cxy
+
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
@@ -86,7 +98,7 @@ public class image_album_show extends AppCompatActivity {
         out.write(bout.toByteArray());
     }
 
-//实现进度条显示
+    //实现进度条显示
     private class LoadingAsyncTask extends AsyncTask<String, Integer, Long> {
         @Override
         protected void onPreExecute() {
@@ -98,10 +110,21 @@ public class image_album_show extends AppCompatActivity {
         protected Long doInBackground(String... params) {
             //1，耗时操作
             //2.将进度公布出去
+            if(LoadingAsyncTaskisSuccess == -1){                             //change by cxy 重置上传进度条
+                publishProgress(0);
+            }
             int result = 0;//设置进度
             for(result=0;result<=100;result++){
                 publishProgress(result);
                 try {
+                    if(LoadingAsyncTaskisSuccess == 0){                             //change by cxy 上传失败时显示上传失败
+                        publishProgress(0);
+                        break;
+                    }
+                    if(LoadingAsyncTaskisSuccess == 1){                             //change by cxy 上传失败时显示上传失败
+                        publishProgress(100);
+                        break;
+                    }
                     Thread.sleep(50);
                 }catch (InterruptedException e){
                     e.printStackTrace();
@@ -120,7 +143,12 @@ public class image_album_show extends AppCompatActivity {
         @Override
         protected void onPostExecute(Long aLong) {
             super.onPostExecute(aLong);
-            text.setText("上传完成");
+            if(LoadingAsyncTaskisSuccess == 0){                             //change by cxy 上传失败时显示上传失败
+                text.setText("上传失败，请检查网络或重新上传");
+            }else{
+                text.setText("上传完成");
+            }
+
             //耗时操作执行完毕，更新UI
         }
     }
@@ -156,6 +184,7 @@ public class image_album_show extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(image_album_show.this, "上传图片", Toast.LENGTH_SHORT).show();
                 LoadingAsyncTask task = new LoadingAsyncTask();
+                LoadingAsyncTaskisSuccess = -1;              //重置上传进度条 正常上传 add by cxy
                 task.execute();
 
                 new Thread() {
@@ -168,12 +197,14 @@ public class image_album_show extends AppCompatActivity {
 //                        File outputImage = new File(getExternalCacheDir(), "output_image.jpg");         //要传输的图片路径地址 bycxy
 //                        File f = new File(String.valueOf(outputImage));                                     //要传输的图片路径地址
                         File f = new File(String.valueOf(imagePath));                                       //change bycxy
+
 //                        String host = "192.168.1.102";//本机运行
                         String host =addhost ;
 
 //                        String host = "nswz.dali.edu.cn"; //            地址要写对              //
                         int port =8083;
                         try {
+
                             Socket socket = new Socket(host, port);
                             OutputStream os =  socket.getOutputStream();
                             FileInputStream fis = new FileInputStream(f);
@@ -200,11 +231,21 @@ public class image_album_show extends AppCompatActivity {
                             baos.close();
 
                             Intent intent = new Intent();
-                            intent.putExtra("info",info);
-                            intent.setClass(image_album_show.this, showInformation.class);
-                            startActivity(intent);
+                            if(info == "-1"){
+                                Toast.makeText(image_album_show.this, "上传失败，请重新上传", Toast.LENGTH_SHORT).show();
+                            }else {
+                                LoadingAsyncTaskisSuccess = 1;              //上传成功，更新进度条 add by cxy
+                                intent.putExtra("info",info);
+                                intent.setClass(image_album_show.this, showInformation.class);
+                                startActivity(intent);
+                            }
+
 
                         } catch (IOException e) {
+                            Looper.prepare();
+                            LoadingAsyncTaskisSuccess = 0;                  //上传失败，更新进度条 add by cxy
+                            Toast.makeText(image_album_show.this, "上传失败，请检查网络或重新上传", Toast.LENGTH_SHORT).show();
+                            Looper.loop();
                             e.printStackTrace();
                         }
 //                        Toast.makeText(image_album_show.this, "You denied the permission", Toast.LENGTH_SHORT).show();
@@ -265,7 +306,8 @@ public class image_album_show extends AppCompatActivity {
                 intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(intent, 1);
 
-                try {// 将拍摄的照片显示出来
+                try {
+                    // 将拍摄的照片显示出来
                     Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
 
                     picture.setImageBitmap(bitmap);
@@ -292,6 +334,47 @@ public class image_album_show extends AppCompatActivity {
 
 
     }
+    /**
+     * Okhttp上传图片(流)
+     */
+    private void okHttpUploadImage() {
+        // 创建 OkHttpClient
+        OkHttpClient client = new OkHttpClient.Builder().build();
+        // 要上传的文件
+        File file = new File("/storage/emulated/0/Download/timg-4.jpg");
+        MediaType mediaType = MediaType.parse("image/jpeg");
+        // 把文件封装进请求体
+        RequestBody fileBody = RequestBody.create(mediaType, file);
+        // MultipartBody 上传文件专用的请求体
+        RequestBody body = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM) // 表单类型(必填)
+                .addFormDataPart("smfile", file.getName(), fileBody)
+                .build();
+        Request request = new Request.Builder()
+                .url("https://sm.ms/api/upload")
+                .header("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:66.0) Gecko/20100101 Firefox/66.0")
+                .post(body)
+                .build();
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    System.out.println(response.body().string());
+                } else {
+                    System.out.println(response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+    }
+
+
 
     //打开相册
     private void openAlbum() {
@@ -347,16 +430,17 @@ public class image_album_show extends AppCompatActivity {
                         }
                         try {
                             mShared_3 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
-                            String cp = mShared_3.getString("cp","20");
+                            String cp = mShared_3.getString("cp","100");
                             int comp=Integer.parseInt(cp);
                             BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(file));
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, comp, bos);           //向缓冲区压缩图片 change by cxy
-                            bos.flush();
+                            //向缓冲区压缩图片 comp为压缩率 在设置里自己设定 并存在SharedPreferences change by cxy
+                            bitmap.compress(Bitmap.CompressFormat.JPEG, comp, bos);             // 把压缩后的数据存放到baos中 注释 by cxy
+                            bos.flush();                                                        // 写入 注释 by cxy
                             bos.close();
                             Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！当前图片压缩率："+cp, Toast.LENGTH_LONG).show();
                             Log.d("MAIN", fileName);
-                            imagePath = fileName;
-                            mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+                            imagePath = fileName;                           //全局变量 在上传图片是使用 add by cxy
+                            mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);     //从sharedpreference中取出
                             String name = mShared_name.getString("name",null);
                             DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);  //插入图片路径进sqlite by WF
                             SQLiteDatabase databa = dh.getWritableDatabase();
@@ -383,7 +467,7 @@ public class image_album_show extends AppCompatActivity {
                         } catch (Exception e) {
                             // TODO Auto-generated catch block
                             //e.printStackTrace();
-                            Toast.makeText(image_album_show.this, "拍照未成功，照片保存在" + fileName + "文件之中！", Toast.LENGTH_LONG).show();
+                            Toast.makeText(image_album_show.this, "拍照未成功，空照片保存在" + fileName + "文件之中！", Toast.LENGTH_LONG).show();
 //                        Toast.makeText(image_album_show.this, "未拍照！"+e.toString(), Toast.LENGTH_LONG).show();
                             Log.d("MAIN", e.toString());
                             Intent i = new Intent(image_album_show.this, gongneng.class);
@@ -397,23 +481,24 @@ public class image_album_show extends AppCompatActivity {
                 }
                 break;
 
+            //打开相册
             case 2:
                 if(resultCode == RESULT_CANCELED){
                     Toast.makeText(image_album_show.this, "您取消了查看相册图片！", Toast.LENGTH_LONG).show();
                     Intent i=new Intent(image_album_show.this,gongneng.class);
                     startActivity(i);
                 }else {
-            if(data==null)
-                return;
-                // 判断手机系统版本号
-                if (Build.VERSION.SDK_INT >= 19) {
-                    // 4.4及以上系统使用这个方法处理图片
-//                     handleImageOnKitKat(data);
-                    handleImageOnKitKat(data);
-                } else {
-                    // 4.4以下系统使用这个方法处理图片
-                    handleImageBeforeKitKat(data);
-                }}
+                    if(data==null)
+                        return;
+                        // 判断手机系统版本号
+                        if (Build.VERSION.SDK_INT >= 19) {
+                            // 4.4及以上系统使用这个方法处理图片
+        //                     handleImageOnKitKat(data);
+                            handleImageOnKitKat(data);
+                        } else {
+                            // 4.4以下系统使用这个方法处理图片
+                            handleImageBeforeKitKat(data);
+                        }}
                 break;
             default:
                 break;
@@ -448,7 +533,9 @@ public class image_album_show extends AppCompatActivity {
             // 如果是file类型的Uri，直接获取图片路径即可
             imagePath = uri.getPath();
         }
+
         displayImage(imagePath); // 根据图片路径显示图片
+        compressBitmap(imagePath);
 
     }
 
@@ -481,6 +568,52 @@ public class image_album_show extends AppCompatActivity {
         }
     }
 
+    //压缩图片 选择照片时压缩图片 并保存在根目录中 然后上传 add by cxy
+    public void compressBitmap(String filePath){
+//        Toast.makeText(this, "78786786786", Toast.LENGTH_SHORT).show();
+        File file = new File(Environment.getExternalStorageDirectory(), "test.jpg");
+
+        // 数值越高，图片像素越低
+        int inSampleSize = 2;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        //采样率
+        options.inSampleSize = inSampleSize;
+        Bitmap bitmap = BitmapFactory.decodeFile(filePath, options);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        // 把压缩后的数据存放到baos中
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 10 ,baos);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            fos.write(baos.toByteArray());
+            fos.flush();
+            fos.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        imagePath = Environment.getExternalStorageDirectory()+"/test.jpg";
+    }
+
+    // 删除文件 上传完 图片后 删除 压缩的临时文件  没用到 add by cxy
+    public boolean deleteFoder(File file) {
+        if (file.exists()) { // 判断文件是否存在
+            if (file.isFile()) { // 判断是否是文件
+                file.delete(); // 删除文件
+            } else if (file.isDirectory()) { // 否则如果它是一个目录
+                File files[] = file.listFiles(); // 实例化目录下所有的文件
+                if (files != null) { // 遍历目录下所有的文件，并删除
+                    for (int i = 0; i < files.length; i++) {
+                        deleteFoder(files[i]);
+                    }
+                }
+            }
+            boolean isSuccess = file.delete();
+            if (!isSuccess) {
+                return false;
+            }
+        }
+        return true;
+    }
 
 
 }

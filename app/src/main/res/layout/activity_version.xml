@@ -13,7 +13,7 @@
         android:id="@+id/text_my"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="关于蜘识"
+        android:text="更新说明"
         android:textSize="20sp"
         android:gravity="center"
         android:textColor="#495060"
@@ -40,8 +40,71 @@
 <TextView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:text="vision 1.0.1"
+    android:text="vision 1.0.2"
     android:gravity="center"
     android:textSize="20sp"
     />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+
+        android:gravity="center"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="  更新说明:"
+        android:textSize="20sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            1: 改进部分机型安装后闪退的bug（安卓版本比较的的情况）"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            2: 增加上传失败提醒的功能"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            3: 把“关于蜘识”页面改为“更新说明”"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            4: 识别图片时，压缩上传，以加快识别速度"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            5: 修改识别页面中，“我的”显示错误"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            6: 拍照时，压缩率修改为100（不压缩保存图片）"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            7: 返回上传页面时，重新点击上传，重置进度条"
+        android:textSize="15sp"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="            8: 把按钮文字“上传至服务器”改为“上传并识别”"
+        android:textSize="15sp"
+        />
+
+
 </LinearLayout>
