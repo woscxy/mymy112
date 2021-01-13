@@ -439,7 +439,8 @@ public class image_album_show extends AppCompatActivity {
                             bos.close();
                             Toast.makeText(image_album_show.this, "拍照成功，照片保存在" + fileName + "文件之中！当前图片压缩率："+cp, Toast.LENGTH_LONG).show();
                             Log.d("MAIN", fileName);
-                            imagePath = fileName;                           //全局变量 在上传图片是使用 add by cxy
+                            imagePath = fileName;                           //全局变量 图片路径 在上传图片时使用 add by cxy
+                            compressBitmap(imagePath);                      //压缩图片 拍照后时压缩图片 并保存在根目录中 然后上传 add by cxy
                             mShared_name = getSharedPreferences("name_info", MODE_PRIVATE);     //从sharedpreference中取出
                             String name = mShared_name.getString("name",null);
                             DatabaseHelper dh = new DatabaseHelper(image_album_show.this,"personnal",null,1);  //插入图片路径进sqlite by WF

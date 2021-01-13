@@ -38,6 +38,14 @@
         android:text="识别结果为：络新妇"
         />
     <TextView
+        android:id="@+id/prob"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        android:textSize="15dp"
+        android:text="置信度：50%"
+        />
+    <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

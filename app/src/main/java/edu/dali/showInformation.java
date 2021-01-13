@@ -24,8 +24,13 @@ public class showInformation extends AppCompatActivity {
 //        WebView webView = (WebView) findViewById(R.id.webView01);
 //        TextView setResult = (TextView) findViewById(R.id.setResult) ;
 
-        String what_class = info;
-
+//        String what_class = info;
+        String[] strArr = info.split("-");      //分割 - 的前面为类型 后面为置信度
+        String what_class = strArr[0];
+        String prob = strArr[1];
+        Double probDouble = Double.parseDouble(prob)*100;               // 将String 转成double , 把数值上升两位
+        Double probInt = (double)Math.round(probDouble*100)/100;      //保留两位小数
+        prob = String.valueOf(probInt)+"%";                             //转为String类型 并加上 %
         String url = "https://baike.baidu.com/item/%E9%A3%9F%E9%B8%9F%E8%9B%9B/3725476?fr=aladdin";
         switch (what_class) {
             case "0":
@@ -36,6 +41,8 @@ public class showInformation extends AppCompatActivity {
                         .setMessage("蟹蛛")//内容
                         .create();
                 alertDialog0.show();
+                TextView probTextView = findViewById(R.id.prob);
+                probTextView.setText("置信度："+prob);
                 break;
             case "1":
                 AlertDialog alertDialog1 = new AlertDialog.Builder(this)
@@ -44,6 +51,8 @@ public class showInformation extends AppCompatActivity {
                         .create();
                 alertDialog1.show();
                 setContentView(R.layout.shiniaozhu);
+                TextView probTextView1 = findViewById(R.id.prob);
+                probTextView1.setText("置信度："+prob);
                 url = "https://baike.baidu.com/item/%E9%A3%9F%E9%B8%9F%E8%9B%9B/3725476?fr=aladdin";
                 break;
             case "2":
@@ -53,6 +62,8 @@ public class showInformation extends AppCompatActivity {
                         .create();
                 alertDialog2.show();
                 setContentView(R.layout.shuzhu);
+                TextView probTextView2 = findViewById(R.id.prob);
+                probTextView2.setText("置信度："+prob);
                 url = "https://baike.baidu.com/item/%E9%BC%A0%E8%9B%9B/8760387?fr=aladdin";
                 break;
             case "3":
@@ -62,6 +73,8 @@ public class showInformation extends AppCompatActivity {
                         .create();
                 alertDialog3.show();
                 setContentView(R.layout.yuanzhu);
+                TextView probTextView3 = findViewById(R.id.prob);
+                probTextView3.setText("置信度："+prob);
                 url = "https://baike.baidu.com/item/%E5%9C%86%E8%9B%9B";
                 break;
             case "4":
@@ -70,6 +83,9 @@ public class showInformation extends AppCompatActivity {
                         .setMessage("络新妇")//内容
                         .create();
                 alertDialog4.show();
+                setContentView(R.layout.luoxinfu);
+                TextView probTextView4 = findViewById(R.id.prob);
+                probTextView4.setText("置信度："+prob);
                 url = "https://baike.baidu.com/item/%E7%BB%9C%E6%96%B0%E5%A6%87/14880545#viewPageContent";
                 break;
             case "5":
