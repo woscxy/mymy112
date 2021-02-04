@@ -3,8 +3,11 @@ package edu.dali;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -12,7 +15,11 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,8 +28,11 @@ import android.os.Looper;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.core.content.FileProvider;
+
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -34,6 +44,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
 import java.net.Socket;
+import java.text.SimpleDateFormat;
 import java.util.Base64;
 
 import java.io.BufferedReader;
@@ -52,8 +63,17 @@ import androidx.core.content.ContextCompat;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.Date;
 
 import android.os.AsyncTask;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 import edu.dali.data.DatabaseHelper;
 import okhttp3.Call;
@@ -72,7 +92,9 @@ public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_3;
     private SharedPreferences mShared_name;
     private int LoadingAsyncTaskisSuccess = -1;         //更新上传进度条，-1为重置上传进度条 正常上传，0为上传失败，1为上传成功 add by cxy
-
+    private String longtitude,latitude;
+    TextView textView_location;
+    FusedLocationProviderClient fusedLocationProviderClient;
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
@@ -179,86 +201,101 @@ public class image_album_show extends AppCompatActivity {
         sendImage=(Button)findViewById(R.id.upload);
         imageview=(ImageView)findViewById(R.id.V_Image);
 
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(image_album_show.this);
+        /////location of GPS
+        if (ActivityCompat.checkSelfPermission(image_album_show.this
+                , Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(image_album_show.this
+                , Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            getCurrenLocation();
+        }
+        else{
+            ActivityCompat.requestPermissions(image_album_show.this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION},100);
 
+        }
+        ///////////////////
         //把图片上传到服务器
         sendImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(image_album_show.this, "上传图片", Toast.LENGTH_SHORT).show();
-                LoadingAsyncTask task = new LoadingAsyncTask();
-                LoadingAsyncTaskisSuccess = -1;              //重置上传进度条 正常上传 add by cxy
-                task.execute();
+                if(!isInternetConnection(image_album_show.this))
+                {
+                    showCustomDialog();
+                    //Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(image_album_show.this, "上传图片", Toast.LENGTH_SHORT).show();
+                    LoadingAsyncTask task = new LoadingAsyncTask();
+                    LoadingAsyncTaskisSuccess = -1;              //重置上传进度条 正常上传 add by cxy
+                    task.execute();
+                    new Thread() {
 
-                new Thread() {
-
-                    @RequiresApi(api = Build.VERSION_CODES.O)
-                    public void run() {
-                        mShared_2 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
-                        String addhost = mShared_2.getString("addhost","202.203.16.38");
+                        @RequiresApi(api = Build.VERSION_CODES.O)
+                        public void run() {
+                            mShared_2 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
+                            String addhost = mShared_2.getString("addhost","202.203.16.38");
 //                        File f = new File("D:\\img\\test.jpg");//要传输的图片路径地址
 //                        File outputImage = new File(getExternalCacheDir(), "output_image.jpg");         //要传输的图片路径地址 bycxy
 //                        File f = new File(String.valueOf(outputImage));                                     //要传输的图片路径地址
-                        File f = new File(String.valueOf(imagePath));                                       //change bycxy
+                            File f = new File(String.valueOf(imagePath));                                       //change bycxy
 
 //                        String host = "192.168.1.102";//本机运行
-                        String host =addhost ;
+                            String host =addhost ;
 
 //                        String host = "nswz.dali.edu.cn"; //            地址要写对              //
-                        int port =8083;
-                        try {
+                            int port =8083;
+                            try {
 
-                            Socket socket = new Socket(host, port);
-                            OutputStream os =  socket.getOutputStream();
-                            FileInputStream fis = new FileInputStream(f);
-                            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                            int length = 0;
-                            byte[] sendBytes = new byte[1024*1024];
-                            while((length = fis.read(sendBytes, 0, sendBytes.length)) > 0){
-                                baos.write(sendBytes, 0, length);
-                            }
-                            baos.flush();
-                            PrintWriter pw = new PrintWriter(os);
-                            pw.write(Base64.getEncoder().encodeToString(baos.toByteArray()));
-                            pw.flush();
-                            socket.shutdownOutput();
-                            InputStream is = socket.getInputStream();
-                            BufferedReader br = new BufferedReader(new InputStreamReader(is));
-                            String info = br.readLine();
+                                Socket socket = new Socket(host, port);
+                                OutputStream os =  socket.getOutputStream();
+                                FileInputStream fis = new FileInputStream(f);
+                                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                                int length = 0;
+                                byte[] sendBytes = new byte[1024*1024];
+                                while((length = fis.read(sendBytes, 0, sendBytes.length)) > 0){
+                                    baos.write(sendBytes, 0, length);
+                                }
+                                baos.flush();
+                                PrintWriter pw = new PrintWriter(os);
+                                pw.write(Base64.getEncoder().encodeToString(baos.toByteArray()));
+                                pw.flush();
+                                socket.shutdownOutput();
+                                InputStream is = socket.getInputStream();
+                                BufferedReader br = new BufferedReader(new InputStreamReader(is));
+                                String info = br.readLine();
 //                            Toast.makeText(image_album_show.this, info, Toast.LENGTH_SHORT).show();
 
-                            socket.close();
-                            os.close();
-                            fis.close();
-                            pw.close();
-                            baos.close();
+                                socket.close();
+                                os.close();
+                                fis.close();
+                                pw.close();
+                                baos.close();
 
-                            Intent intent = new Intent();
-                            if(info == "-1"){
-                                Toast.makeText(image_album_show.this, "上传失败，请重新上传", Toast.LENGTH_SHORT).show();
-                            }else {
-                                LoadingAsyncTaskisSuccess = 1;              //上传成功，更新进度条 add by cxy
-                                intent.putExtra("info",info);
-                                intent.setClass(image_album_show.this, showInformation.class);
-                                startActivity(intent);
+                                Intent intent = new Intent();
+                                if(info == "-1"){
+                                    Toast.makeText(image_album_show.this, "上传失败，请重新上传", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    LoadingAsyncTaskisSuccess = 1;              //上传成功，更新进度条 add by cxy
+                                    intent.putExtra("info",info);
+                                    intent.setClass(image_album_show.this, showInformation.class);
+                                    startActivity(intent);
+                                }
+
+
+                            } catch (IOException e) {
+                                Looper.prepare();
+                                LoadingAsyncTaskisSuccess = 0;                  //上传失败，更新进度条 add by cxy
+                                Toast.makeText(image_album_show.this, "上传失败，请检查网络或重新上传", Toast.LENGTH_SHORT).show();
+                                Looper.loop();
+                                e.printStackTrace();
                             }
-
-
-                        } catch (IOException e) {
-                            Looper.prepare();
-                            LoadingAsyncTaskisSuccess = 0;                  //上传失败，更新进度条 add by cxy
-                            Toast.makeText(image_album_show.this, "上传失败，请检查网络或重新上传", Toast.LENGTH_SHORT).show();
-                            Looper.loop();
-                            e.printStackTrace();
-                        }
 //                        Toast.makeText(image_album_show.this, "You denied the permission", Toast.LENGTH_SHORT).show();
 
 
-                    }
-                    //启动线程
-                }.start();
-
-
-
+                        }
+                        //启动线程
+                    }.start();
+                }
             }
         });
 
@@ -336,6 +373,71 @@ public class image_album_show extends AppCompatActivity {
 
 
     }
+//    ////////////////
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode==100&&grantResults.length>0&&(grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
+            getCurrenLocation();
+        }
+        else {
+            Toast.makeText(image_album_show.this,"Permission denied your location...", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void getCurrenLocation() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(locationManager.NETWORK_PROVIDER)) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
+                @Override
+                public void onComplete(@NonNull Task<Location> task) {
+                    Location location = task.getResult();
+                    if (location != null) {
+                        longtitude=String.valueOf(location.getLongitude());
+                        latitude=String.valueOf(location.getLatitude());
+                        ///textView_location.setText("Location : " + String.valueOf(location.getLatitude()) + " , " + String.valueOf(location.getLongitude()));
+                    } else {
+                        LocationRequest locationRequest = new LocationRequest()
+                                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                                .setInterval(10000)
+                                .setFastestInterval(1000)
+                                .setNumUpdates(1);
+                        LocationCallback locationCallback = new LocationCallback() {
+                            @Override
+                            public void onLocationResult(LocationResult locationResult) {
+                                Location location1 = locationResult.getLastLocation();
+                                //textView_location.setText("Location : " + String.valueOf(location1.getLatitude()) + " , " + String.valueOf(location1.getLongitude()));
+                            }
+                        };
+                        if (ActivityCompat.checkSelfPermission(image_album_show.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(image_album_show.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+                            return;
+                        }
+                        fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+                    }
+                }
+            });
+        }else{
+            startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        }
+    }
+    //////////////////////////////
     /**
      * Okhttp上传图片(流)
      */
@@ -390,21 +492,21 @@ public class image_album_show extends AppCompatActivity {
 
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {//得到或拒绝权限
-        switch (requestCode) {
-            case 1:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    openAlbum();
-                }
-                else {
-                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
-                }
-                break;
-            default:
-                break;
-        }
-    }
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {//得到或拒绝权限
+//        switch (requestCode) {
+//            case 1:
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    openAlbum();
+//                }
+//                else {
+//                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
+//                }
+//                break;
+//            default:
+//                break;
+//        }
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -420,11 +522,12 @@ public class image_album_show extends AppCompatActivity {
 
                         // 将拍摄的照片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
+                        String timestamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                         String fileName = Environment.getExternalStorageDirectory().toString()
                                 + File.separator
-                                + "AppTest"
+                                + "蜘蛛相机"
                                 + File.separator
-                                + "PicTest_" + System.currentTimeMillis() + ".jpg";
+                                + "IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+".jpg";////GPS
 
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
@@ -617,6 +720,36 @@ public class image_album_show extends AppCompatActivity {
         }
         return true;
     }
-
-
+    public static   boolean isInternetConnection(Context mContext)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return  true;
+        }
+        else {
+            return false;
+        }
+    }
+    private void showCustomDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(image_album_show.this);
+        builder.setMessage("无法链接网络，请检查网络设置后重试(-869)")
+                .setCancelable(false)
+                .setPositiveButton("链接", new DialogInterface.  OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(getApplicationContext(),image_album_show.class));
+                        //finish();
+                    }
+                });
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
 }

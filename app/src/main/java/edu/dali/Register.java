@@ -1,11 +1,17 @@
 package edu.dali;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Looper;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -92,6 +98,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                     shenfen.requestFocus();
                     return;
                 }
+                 else if(!isInternetConnection(Register.this))
+                 {
+                     showCustomDialog();
+                     //Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
+                 }
                 else {//change by psc
                     if(psd.equals(sf)){//change by psc
                         new Thread() {
@@ -156,5 +167,36 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         String rs = sb.toString();
         Log.e("注册信息",rs);
     }
-
+    public static   boolean isInternetConnection(Context mContext)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return  true;
+        }
+        else {
+            return false;
+        }
+    }
+    private void showCustomDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(Register.this);
+        builder.setMessage("无法链接网络，请检查网络设置后重试(-869)")
+                .setCancelable(false)
+                .setPositiveButton("链接", new DialogInterface.  OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(getApplicationContext(),Register.class));
+                        //finish();
+                    }
+                });
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
 }

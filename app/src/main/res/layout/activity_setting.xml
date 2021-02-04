@@ -153,6 +153,7 @@
             android:layout_weight="1"
             >
             <ImageView
+                android:backgroundTint="@color/colorPrimary"
                 android:id="@+id/sz3"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -166,7 +167,7 @@
                 android:text=" 我的 "
                 android:gravity="center"
                 android:textSize="11sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="bottom"
                 />
         </LinearLayout>

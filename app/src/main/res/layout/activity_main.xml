@@ -91,6 +91,7 @@
             android:layout_weight="1"
             >
             <ImageView
+                android:backgroundTint="@color/colorPrimary"
                 android:id="@+id/sy1"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -104,7 +105,7 @@
                 android:text=" 首页 "
                 android:gravity="center"
                 android:textSize="11sp"
-                android:textColor="#000000"
+                android:textColor="@color/colorPrimary"
                 android:layout_gravity="bottom"
                 />
         </LinearLayout>

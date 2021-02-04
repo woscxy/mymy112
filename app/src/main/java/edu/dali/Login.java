@@ -1,11 +1,18 @@
 package edu.dali;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Looper;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -81,6 +88,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                     password.setError("您的密码不能小于六位!");
                     password.requestFocus();
                     return;
+                }
+                else if(!isInternetConnection(Login.this))
+                {
+                    showCustomDialog();
+                    //Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
                 }
                 else{//change by psc
                     new Thread() {
@@ -165,5 +177,36 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
         }
         return super.onKeyDown(keyCode, event); }
 
-
+    public static   boolean isInternetConnection(Context mContext)
+    {
+        ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            //we are connected to a network
+            return  true;
+        }
+        else {
+            return false;
+        }
+    }
+    private void showCustomDialog(){
+        AlertDialog.Builder builder=new AlertDialog.Builder(Login.this);
+        builder.setMessage("无法链接网络，请检查网络设置后重试(-869)")
+                .setCancelable(false)
+                .setPositiveButton("链接", new DialogInterface.  OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(Settings.ACTION_WIFI_SETTINGS));
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        startActivity(new Intent(getApplicationContext(),Login.class));
+                        //finish();
+                    }
+                });
+        AlertDialog alertDialog=builder.create();
+        alertDialog.show();
+    }
 }
