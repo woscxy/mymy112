@@ -9,9 +9,10 @@ import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+/* 显示蜘蛛识别结果 */
 
 public class showInformation extends AppCompatActivity {
     @Override

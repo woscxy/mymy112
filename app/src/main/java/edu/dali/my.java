@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
+/* “我的”界面 显示设置界面 头像等 */
 public class my extends AppCompatActivity {
     private SharedPreferences mShared_login;
 

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+/* 压缩率设置 ip地址设置 */
+
 public class tyActivity extends AppCompatActivity {
     private SharedPreferences mShared;
     private SharedPreferences mShared1;

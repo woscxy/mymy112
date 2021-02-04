@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Looper;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import java.io.BufferedReader;
@@ -25,6 +23,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import edu.dali.data.DatabaseHelper;
+
+
+/* 显示注册界面 空字符验证 字符数量验证 与服务器交互 */
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
 

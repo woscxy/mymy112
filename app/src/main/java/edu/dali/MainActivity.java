@@ -1,9 +1,7 @@
 package edu.dali;
-
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.ViewCompat;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +15,10 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+
+//这是首页界面，用于介绍APP的大体功能和可识别的动物类型
+
 
 public class MainActivity extends AppCompatActivity {
     private SharedPreferences mShared_login;

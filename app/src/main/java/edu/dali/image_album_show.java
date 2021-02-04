@@ -65,6 +65,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/* 上传识别界面后台逻辑 可以展示图片 回到功能界面 和上传图片 */
+
 public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_2;
     private SharedPreferences mShared_3;

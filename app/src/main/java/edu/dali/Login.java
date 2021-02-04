@@ -24,6 +24,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import android.os.Bundle;
 
+/* 登录界面显示 字符数量验证 空字符验证 与服务器后台的交互 */
+
 public class Login extends AppCompatActivity implements View.OnClickListener{
 
     private EditText username;

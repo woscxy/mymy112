@@ -1,8 +1,9 @@
 package edu.dali;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+/* 版本信息显示 */
 
 public class versionActivity extends AppCompatActivity {
 
