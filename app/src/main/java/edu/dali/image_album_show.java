@@ -191,13 +191,14 @@ public class image_album_show extends AppCompatActivity {
     private int Show_Choice;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_album_show);
         picture = (ImageView) findViewById(R.id.V_Image);
         Return_page=(Button)findViewById(R.id.Return_Back_to_page1);
         bundle = this.getIntent().getExtras();
         Show_Choice=bundle.getInt("id");
-
+        textView_location =findViewById(R.id.textView_location);
         sendImage=(Button)findViewById(R.id.upload);
         imageview=(ImageView)findViewById(R.id.V_Image);
 
@@ -528,7 +529,7 @@ public class image_album_show extends AppCompatActivity {
                                 + "蜘蛛相机"
                                 + File.separator
                                 + "IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+".jpg";////GPS
-
+                        textView_location.setText("经纬度 : " + String.valueOf(longtitude) + " , " + String.valueOf(latitude));
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
                             file.getParentFile().mkdir();//创建文件夹
@@ -640,8 +641,30 @@ public class image_album_show extends AppCompatActivity {
             imagePath = uri.getPath();
         }
 
-        displayImage(imagePath); // 根据图片路径显示图片
+
+
+        // 根据图片名称获取图片经纬度 add by cxy
+        String imageName = getFileName(imagePath);
+        Toast.makeText(image_album_show.this, imageName, Toast.LENGTH_LONG).show();
+        String[] all=imageName.split("_");
+        if(all.length >3){
+            textView_location.setText("经纬度 : " + String.valueOf(all[2]) + " , " + String.valueOf(all[3]));
+        }else{
+            textView_location.setText("经纬度 : 无经纬度信息，请使用蜘识app进行拍照"+"\n"+"或者直接上传");
+        }
+
         compressBitmap(imagePath);
+        displayImage(imagePath); // 根据图片路径显示图片
+    }
+
+    public String getFileName(String pathandname){
+        int start=pathandname.lastIndexOf("/");
+        int end=pathandname.lastIndexOf(".");
+        if(start!=-1 && end!=-1){
+            return pathandname.substring(start+1,end);
+        }else{
+            return null;
+        }
 
     }
 
