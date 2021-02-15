@@ -14,6 +14,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 /* 显示设置界面 */
 
@@ -93,6 +94,17 @@ public class shezhi extends AppCompatActivity {
             }
         });
     }
+//    public void selectallpicture(){
+//        Intent intent = new Intent("android.intent.action.GET_CONTENT");
+//        intent.setType("image/*");
+////        int a=1;
+////        for(int i=1;i<=10;i++){
+////            if(a>1){
+////
+////            }
+////        }
+//        startActivityForResult(intent, 2); // 打开相册
+//    }
     public static   boolean isInternetConnection(Context mContext)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -125,4 +137,5 @@ public class shezhi extends AppCompatActivity {
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
     }
+
 }

@@ -43,6 +43,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
@@ -94,10 +96,12 @@ public class image_album_show extends AppCompatActivity {
     private int LoadingAsyncTaskisSuccess = -1;         //更新上传进度条，-1为重置上传进度条 正常上传，0为上传失败，1为上传成功 add by cxy
     private String longtitude,latitude;
     TextView textView_location;
+    private String filetxt;
     FusedLocationProviderClient fusedLocationProviderClient;
     Button sendImage;
     ImageView imageview;
     String imagePath = null;            //add bycxy
+    getimage db;
     public void sendTextMsg(DataOutputStream out, String msg) throws IOException {
         byte[] bytes = msg.getBytes();
         long len = bytes.length;
@@ -194,6 +198,7 @@ public class image_album_show extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_album_show);
+
         picture = (ImageView) findViewById(R.id.V_Image);
         Return_page=(Button)findViewById(R.id.Return_Back_to_page1);
         bundle = this.getIntent().getExtras();
@@ -374,7 +379,7 @@ public class image_album_show extends AppCompatActivity {
 
 
     }
-//    ////////////////
+//    ////////////////psc
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode==100&&grantResults.length>0&&(grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
@@ -438,7 +443,7 @@ public class image_album_show extends AppCompatActivity {
             startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
         }
     }
-    //////////////////////////////
+    //////////////////////////////psc
     /**
      * Okhttp上传图片(流)
      */
@@ -524,15 +529,41 @@ public class image_album_show extends AppCompatActivity {
                         // 将拍摄的照片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         String timestamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                        filetxt="IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+"_.jpg";
                         String fileName = Environment.getExternalStorageDirectory().toString()
                                 + File.separator
                                 + "蜘蛛相机"
                                 + File.separator
-                                + "IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+".jpg";////GPS
+                                +filetxt;
+//                                + "IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+".jpg";////GPS by ps
+                        db=new getimage(this);
+                        if(filetxt.equals("")){
+                            Toast.makeText(image_album_show.this,"Null Image!",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            String getimagefromtaking[]=filetxt.split("_");
+                            db.insertImage(getimagefromtaking[7]+"\t"+getimagefromtaking[2]+"\t"+getimagefromtaking[3]+"\t"+getimagefromtaking[5]+"-"+getimagefromtaking[6]);
+                            Toast.makeText(image_album_show.this,"Saved Image successfully!",Toast.LENGTH_SHORT).show();
+                        }
+                        String dataiamge=db.getdata();
+                        File myfile=new File("/sdcard/蜘蛛相机.txt");
+                        try {
+                            FileOutputStream fout=new FileOutputStream(myfile);
+                            OutputStreamWriter myOutwriter=new OutputStreamWriter(fout);
+                            myOutwriter.append("欢迎光临蜘蛛相机的用户***\n编码\t经度\t纬度\t时间\n"+dataiamge).append("\n");
+                            myOutwriter.flush();
+                            myOutwriter.close();
+                            fout.close();
+//                          Toast.makeText(image_album_show.this,"Text saved!",Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e){
+                            e.printStackTrace();
+                        }
                         textView_location.setText("经纬度 : " + String.valueOf(longtitude) + " , " + String.valueOf(latitude));
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
                             file.getParentFile().mkdir();//创建文件夹
+
                         }
                         try {
                             mShared_3 = getSharedPreferences("setting_info", MODE_PRIVATE);//从sharedpreference中取出
@@ -655,6 +686,7 @@ public class image_album_show extends AppCompatActivity {
 
         compressBitmap(imagePath);
         displayImage(imagePath); // 根据图片路径显示图片
+
     }
 
     public String getFileName(String pathandname){
@@ -743,6 +775,7 @@ public class image_album_show extends AppCompatActivity {
         }
         return true;
     }
+    ///psc
     public static   boolean isInternetConnection(Context mContext)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -774,5 +807,5 @@ public class image_album_show extends AppCompatActivity {
                 });
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
-    }
+    }//psc
 }
