@@ -36,7 +36,8 @@ public class showInformation extends AppCompatActivity {
         switch (what_class) {
             case "0":
                 url = "https://baike.baidu.com/item/%E8%9F%B9%E8%9B%9B/1747579?fr=aladdin";
-                setContentView(R.layout.xiezhu);
+                Intent i1=new Intent(showInformation.this,xiezhu.class);
+//                setContentView(R.layout.xiezhu);
                 AlertDialog alertDialog0 = new AlertDialog.Builder(this)
                         .setTitle("识别结果为:")//标题
                         .setMessage("蟹蛛")//内容

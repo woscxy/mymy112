@@ -546,7 +546,7 @@ public class image_album_show extends AppCompatActivity {
                             Toast.makeText(image_album_show.this,"Saved Image successfully!",Toast.LENGTH_SHORT).show();
                         }
                         String dataiamge=db.getdata();
-                        File myfile=new File("/sdcard/蜘蛛相机.txt");
+                        File myfile=new File("/sdcard/Spider.txt");
                         try {
                             FileOutputStream fout=new FileOutputStream(myfile);
                             OutputStreamWriter myOutwriter=new OutputStreamWriter(fout);

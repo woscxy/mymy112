@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_centerVertical="true"
     android:layout_height="match_parent">
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="10dp">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -18,14 +25,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
-        android:scaleType="fitXY"
         android:id="@+id/imageView2"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:layout_weight="1"
+        android:scaleType="fitXY"
         app:srcCompat="@mipmap/xiezhu" />
 
     <TextView
@@ -44,12 +52,84 @@
         android:textSize="15dp"
         android:text="置信度：50%"
         />
+
     <TextView
         android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="20dp"
         android:text="      蟹蛛是指蜘蛛目（Araneida）蟹蛛科（Thomisidae）蜘蛛，不仅形状像蟹，也能像蟹那样横行或倒退。多数种类头胸部和腹部短宽，步足向左右伸展，能横行，宛如螃蟹科动物。全球约170属，2000余种。不结网，常静伏花草丛中等候捕食过往的昆虫，常见的有三突花蛛（Misumenops tricuspidatus）和鞍形花蟹蛛（Xysticus ephippiatusSimon,1880）。"
-        />
-</LinearLayout>
+        android:textSize="20dp" />
+
+<!--    <Button-->
+<!--        android:layout_gravity="center"-->
+<!--        android:padding="20dp"-->
+<!--        android:id="@+id/button_get_more_results"-->
+<!--        android:layout_width="200dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:textSize="15dp"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:text="更多结果" />-->
+    </LinearLayout>
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="55dp">
+        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:fadingEdge="vertical"
+            >
+            <LinearLayout
+                android:paddingRight="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="2dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="16dp"
+                    android:textSize="18sp"
+                    android:textColor="@color/black"
+                    android:text="更多结果"/>
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/xiezhu" />
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/imageView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/first_page" />
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/imageView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/xiezhu" />
+                <ImageView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/imageView5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@mipmap/first_page" />
+            </LinearLayout>
+        </ScrollView>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
