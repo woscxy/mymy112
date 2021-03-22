@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
         String name = mShared_login.getString("name","");//登录信息保存  by WF
         if(name==""){
-            Toast.makeText(MainActivity.this, "请登录啊", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "欢迎您使用蜘识，请您登录！", Toast.LENGTH_SHORT).show();
             Intent i=new Intent(MainActivity.this,Login.class);
             startActivity(i);
         }

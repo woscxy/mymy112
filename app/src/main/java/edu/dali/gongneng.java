@@ -28,7 +28,7 @@ public class gongneng extends AppCompatActivity {
         mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
         String name = mShared_login.getString("name","");//登录信息保存  by WF
         if(name==""){
-            Toast.makeText(gongneng.this, "请登录啊", Toast.LENGTH_SHORT).show();
+            Toast.makeText(gongneng.this, "请您登录", Toast.LENGTH_SHORT).show();
             Intent i=new Intent(gongneng.this,Login.class);
             startActivity(i);
         }

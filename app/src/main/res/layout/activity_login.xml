@@ -51,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
         android:background="@android:color/holo_blue_light"
-        android:text="登陆"
+        android:text="登录"
         android:textSize="20dp"
         android:textStyle="bold" />
 
@@ -62,7 +62,7 @@
         android:layout_marginLeft="240dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="25dp"
-        android:text="你还没有账户吗？"
+        android:text="新用户注册"
         android:textColor="@android:color/background_light" />
 
     <TextView
@@ -71,7 +71,7 @@
         android:layout_height="39dp"
         android:layout_marginLeft="140dp"
         android:layout_marginTop="4dp"
-        android:text="登陆信息"
+        android:text="登录信息"
         android:visibility="invisible" />
 
     <TextView

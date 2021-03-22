@@ -36,6 +36,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+        <activity android:name=".WebviewActivity"></activity>
         <activity
             android:name=".FirstHome"
             android:theme="@style/FirstThem1">
@@ -50,7 +51,7 @@
         <activity android:name=".Register" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity
             android:name=".guanyuActivity"
             android:launchMode="singleTask" />
@@ -63,7 +64,7 @@
             android:launchMode="singleTask" />
         <activity
             android:name=".gongneng"
-            android:launchMode="singleTask"></activity>
+            android:launchMode="singleTask" />
         <activity android:name=".showInformation" />
         <activity android:name=".Login" />
 

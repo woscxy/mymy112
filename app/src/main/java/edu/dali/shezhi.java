@@ -12,9 +12,13 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+
+
 
 /* 显示设置界面 */
 
@@ -71,6 +75,14 @@ public class shezhi extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent i=new Intent(shezhi.this,guanyuActivity.class);
+                startActivity(i);
+            }
+        });
+        Button gengxin= findViewById(R.id.updateversion);
+        gengxin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i=new Intent(shezhi.this,WebviewActivity.class);
                 startActivity(i);
             }
         });
