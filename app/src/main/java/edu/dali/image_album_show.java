@@ -42,8 +42,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.text.SimpleDateFormat;
@@ -87,6 +85,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 /* 上传识别界面后台逻辑 可以展示图片 回到功能界面 和上传图片 */
 
 public class image_album_show extends AppCompatActivity {
@@ -94,7 +93,7 @@ public class image_album_show extends AppCompatActivity {
     private SharedPreferences mShared_3;
     private SharedPreferences mShared_name;
     private int LoadingAsyncTaskisSuccess = -1;         //更新上传进度条，-1为重置上传进度条 正常上传，0为上传失败，1为上传成功 add by cxy
-    private String longtitude,latitude;
+    public String longtitude,latitude,altitude;
     TextView textView_location;
     private String filetxt;
     FusedLocationProviderClient fusedLocationProviderClient;
@@ -102,6 +101,8 @@ public class image_album_show extends AppCompatActivity {
     ImageView imageview;
     String imagePath = null;            //add bycxy
     getimage db;
+
+    SQLiteDatabase dbs;
     public void sendTextMsg(DataOutputStream out, String msg) throws IOException {
         byte[] bytes = msg.getBytes();
         long len = bytes.length;
@@ -411,6 +412,7 @@ public class image_album_show extends AppCompatActivity {
                     if (location != null) {
                         longtitude=String.valueOf(location.getLongitude());
                         latitude=String.valueOf(location.getLatitude());
+                        altitude=String.valueOf(location.getAltitude());
                         ///textView_location.setText("Location : " + String.valueOf(location.getLatitude()) + " , " + String.valueOf(location.getLongitude()));
                     } else {
                         LocationRequest locationRequest = new LocationRequest()
@@ -529,7 +531,7 @@ public class image_album_show extends AppCompatActivity {
                         // 将拍摄的照片显示出来
                         Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(imageUri));
                         String timestamp=new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                        filetxt="IMG_GPS_"+longtitude+"_"+latitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+"_.jpg";
+                        filetxt="IMG_GPS_"+longtitude+"_"+latitude+"_"+altitude+"_Time_"+timestamp+"_"+System.currentTimeMillis()+"_.jpg";
                         String fileName = Environment.getExternalStorageDirectory().toString()
                                 + File.separator
                                 + "蜘蛛相机"
@@ -543,6 +545,7 @@ public class image_album_show extends AppCompatActivity {
                         else {
                             String getimagefromtaking[]=filetxt.split("_");
                             db.insertImage(getimagefromtaking[7]+"\t"+getimagefromtaking[2]+"\t"+getimagefromtaking[3]+"\t"+getimagefromtaking[5]+"-"+getimagefromtaking[6]);
+                            db.insertjingweidu(getimagefromtaking[2],getimagefromtaking[3]);
                             Toast.makeText(image_album_show.this,"Saved Image successfully!",Toast.LENGTH_SHORT).show();
                         }
                         String dataiamge=db.getdata();
@@ -559,7 +562,8 @@ public class image_album_show extends AppCompatActivity {
                         catch (Exception e){
                             e.printStackTrace();
                         }
-                        textView_location.setText("经纬度 : " + String.valueOf(longtitude) + " , " + String.valueOf(latitude));
+                        textView_location.setText("经纬度和海拔 : " + String.valueOf(longtitude) + " , " + String.valueOf(latitude) + " , " + String.valueOf(altitude));
+
                         File file = new File(fileName);
                         if (!file.getParentFile().exists()) {
                             file.getParentFile().mkdir();//创建文件夹

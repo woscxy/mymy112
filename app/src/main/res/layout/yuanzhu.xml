@@ -53,4 +53,22 @@
 复眼无单眼，有四对步足，附肢内有剧毒。体长2～60毫米。园蛛
 结圆网捕食昆虫，视力弱，依靠网上丝的震动和张力确定食物在网上的位置。"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        ></TextView>
+    <Button
+        android:id="@+id/more"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#dde0fa"
+        android:text="更多结果"
+        android:layout_weight="0.05"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        ></TextView>
 </LinearLayout>

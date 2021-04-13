@@ -40,6 +40,67 @@
         android:layout_width="match_parent"
         android:layout_height="233dp"
         android:background="@mipmap/about" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:textSize="20sp">
+
+            </TextView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="vision 1.0.3"
+                android:gravity="center"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+
+                android:gravity="center"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="  更新说明:"
+                android:textSize="20sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="            1:增加显示海拔信息"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="            2: 优化更多结果页面"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="            3: 经纬度存入sqllite数据库"
+                android:textSize="15sp"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="            4: 增加官方网站（提供下载更新）"
+                android:textSize="15sp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:textSize="20sp"
+                />
+
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="20dp"

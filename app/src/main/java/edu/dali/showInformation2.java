@@ -4,17 +4,14 @@ package edu.dali;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.webkit.WebView;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 /* 显示蜘蛛识别结果 */
 
-public class showInformation extends AppCompatActivity {
+public class showInformation2 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +33,7 @@ public class showInformation extends AppCompatActivity {
         switch (what_class) {
             case "0":
                 url = "https://baike.baidu.com/item/%E8%9F%B9%E8%9B%9B/1747579?fr=aladdin";
-                Intent i1=new Intent(showInformation.this,xiezhu.class);
+                Intent i1=new Intent(showInformation2.this,xiezhu.class);
 //                setContentView(R.layout.xiezhu);
                 AlertDialog alertDialog0 = new AlertDialog.Builder(this)
                         .setTitle("识别结果为:")//标题

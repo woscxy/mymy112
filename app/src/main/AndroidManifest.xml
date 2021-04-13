@@ -65,8 +65,9 @@
         <activity
             android:name=".gongneng"
             android:launchMode="singleTask" />
-        <activity android:name=".showInformation" />
+        <activity android:name=".showInformation2" />
         <activity android:name=".Login" />
+        <activity android:name=".showInformation"/>
 
         <provider
             android:name="androidx.core.content.FileProvider"

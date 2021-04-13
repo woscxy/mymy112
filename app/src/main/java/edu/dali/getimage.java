@@ -5,17 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.Toast;
-
+import edu.dali.image_album_show;
 import androidx.annotation.Nullable;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 
 public class getimage extends SQLiteOpenHelper{
     SQLiteDatabase db;
     private static final String TABLE_IMAGE="_image";
+    private static final String TABLE_IMAGE1="_image";
     private static final String DATABASE_NAME="database.db";
     private static final int DATABASE_VERSION=1;
     private static final String  Image="image";
@@ -28,6 +24,8 @@ public class getimage extends SQLiteOpenHelper{
     public void onCreate(SQLiteDatabase db) {
        String Query_Table="CREATE TABLE "+TABLE_IMAGE+"("+Image+")";
        db.execSQL(Query_Table);
+       String SQL="create table tb_jingwei(_id int primary key,jingdu varchar(100),weidu varchar(100))";
+       db.execSQL(SQL);
     }
 
     @Override
@@ -41,6 +39,20 @@ public class getimage extends SQLiteOpenHelper{
         values.put(Image,image);
         return db.insert(TABLE_IMAGE,null,values);
     }
+    public long insertjingweidu(String jingdua, String weidua){
+        db=this.getWritableDatabase();
+
+        ContentValues values=new ContentValues();
+        values.put("jingdu",jingdua);
+        values.put("weidu",weidua);
+        return db.insert("tb_jingwei",null,values);
+    }
+
+
+
+
+
+
     public String getdata(){
         db=this.getReadableDatabase();
         String[] colums=new String[]{Image};

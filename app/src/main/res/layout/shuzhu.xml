@@ -55,4 +55,22 @@
                 只有一种叫做M.tussulena，在智利被人发现。鼠蛛的名字来自于一个古
                 老的已经被证实为谬误的传说，传说这种蜘蛛和老鼠一样会挖掘很深的洞穴。"
         />
+    <Button
+        android:id="@+id/more"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="#dde0fa"
+        android:text="更多结果"
+        android:layout_weight="0.1"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        ></TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.1"
+        ></TextView>
 </LinearLayout>
