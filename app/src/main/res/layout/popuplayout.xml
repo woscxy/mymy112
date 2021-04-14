@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_height="match_parent">
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_centerVertical="true"
+    android:layout_height="wrap_content">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#000000"
+        >
+    </View>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/white"
+        app:layout_behavior="@string/bottom_sheet_behavior"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="55dp">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="500dp"
+    android:background="#ffffff"
+    >
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:layout_gravity="center">
+    <TextView
+        android:id="@+id/text_my"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="找到三种结果"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:textColor="#495060"
+        android:background="#ffffff" />
+
+    <LinearLayout
+        android:id="@+id/first"
+        android:layout_gravity="center"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:background="#e6e6fa"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:id="@+id/first_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                android:textColor="#ffffff"
+                android:text="chenxy"
+                ></TextView>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="14sp"
+                ></TextView>
+            <TextView
+                android:id="@+id/first_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="chenxy"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                ></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentTop="true"/>
+
+
+    <LinearLayout
+        android:id="@+id/second"
+        android:layout_gravity="center"
+        android:layout_width="340dp"
+        android:layout_height="200dp"
+        android:background="#e6e6fa"
+        android:orientation="vertical"
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:id="@+id/second_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:text="chenxy"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:id="@+id/second_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="chenxy"
+                android:textColor="#ffffff"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                ></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentTop="true"/>
+
+
+    <LinearLayout
+        android:id="@+id/third"
+        android:layout_width="340dp"
+        android:layout_gravity="center"
+        android:layout_height="200dp"
+        android:background="#e6e6fa"
+        android:orientation="vertical"
+
+        >
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="100dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            >
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:id="@+id/third_class"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:textColor="#ffffff"
+                android:text="chenxy"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textSize="14sp"
+                android:layout_gravity="center"
+                ></TextView>
+            <TextView
+                android:id="@+id/third_pre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="chenxy"
+                android:textSize="14sp"
+                android:textColor="#ffffff"
+                android:layout_gravity="center"
+                ></TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
+
+
+</ScrollView>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
