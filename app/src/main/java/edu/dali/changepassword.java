@@ -87,7 +87,7 @@ public class changepassword extends AppCompatActivity {
                                     values.put("username",x);
                                     values.put("password",y);
                                     values.put("shenfen",z);
-                                    Toast.makeText(changepassword.this,"You has changed password successfully",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(changepassword.this,"You have changed password successfully",Toast.LENGTH_SHORT).show();
                                     Looper.loop();
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
