@@ -36,7 +36,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".WebviewActivity"></activity>
+        <activity android:name=".changepassword"></activity>
+        <activity android:name=".WebviewActivity" />
         <activity
             android:name=".FirstHome"
             android:theme="@style/FirstThem1">
@@ -67,7 +68,7 @@
             android:launchMode="singleTask" />
         <activity android:name=".showInformation2" />
         <activity android:name=".Login" />
-        <activity android:name=".showInformation"/>
+        <activity android:name=".showInformation" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

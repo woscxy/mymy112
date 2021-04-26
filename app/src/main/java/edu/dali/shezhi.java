@@ -105,18 +105,15 @@ public class shezhi extends AppCompatActivity {
                 }
             }
         });
+        Button bt_changepassword=(Button)findViewById(R.id.bt_changepassword);
+        bt_changepassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(shezhi.this,changepassword.class);
+                startActivity(i);
+            }
+        });
     }
-//    public void selectallpicture(){
-//        Intent intent = new Intent("android.intent.action.GET_CONTENT");
-//        intent.setType("image/*");
-////        int a=1;
-////        for(int i=1;i<=10;i++){
-////            if(a>1){
-////
-////            }
-////        }
-//        startActivityForResult(intent, 2); // 打开相册
-//    }
     public static   boolean isInternetConnection(Context mContext)
     {
         ConnectivityManager connectivityManager = (ConnectivityManager)mContext.getSystemService(Context.CONNECTIVITY_SERVICE);

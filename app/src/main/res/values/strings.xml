@@ -10,4 +10,5 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="dummyText">      蜘识是大理大学数学与计算机学院人工智能研究团队利用深度学习技术，基于昆虫生物医药研究院（大理大学）分类图库及用户共建图库开发的蜘蛛识别软件。本版本暂时能识别5种蜘蛛物种，随着分类图库的进一步完善及用户的广泛使用，其识别能力还能不断提升。   V1.0功能: 识别蟹蛛、鼠蛛、园蛛、食鸟蛛、络新妇5个物种。 </string>
 </resources>

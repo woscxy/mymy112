@@ -55,7 +55,7 @@
 
             <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="wrap_content"
-                android:layout_height="120dp"
+                android:layout_height="300dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:padding="6dp">
@@ -85,23 +85,9 @@
                     android:textColor="#000000"
                     android:layout_gravity="bottom"
                     />
+
             </RelativeLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:orientation="horizontal">
-
-
-
-
-
-            </LinearLayout>
         </LinearLayout>
-
-
-
     </ScrollView>
 
 
@@ -193,5 +179,6 @@
         </LinearLayout>
 
     </LinearLayout>
+
 
 </RelativeLayout>

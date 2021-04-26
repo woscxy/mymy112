@@ -60,6 +60,15 @@
         android:textSize="20sp"
         android:gravity="left"
         />
+        <Button
+            android:id="@+id/bt_changepassword"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:textColor="#495060"
+            android:backgroundTint="@color/cardview_light_background"
+            android:text="修改密码"
+            android:textSize="20sp"
+            android:gravity="left"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="20sp"

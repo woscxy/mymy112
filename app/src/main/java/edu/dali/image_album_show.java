@@ -43,7 +43,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
+import java.net.URLConnection;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 
@@ -103,6 +106,10 @@ public class image_album_show extends AppCompatActivity {
     getimage db;
 
     SQLiteDatabase dbs;
+
+
+    public String longinformation,lainformation,imgtime,id,Nameuser;
+
     public void sendTextMsg(DataOutputStream out, String msg) throws IOException {
         byte[] bytes = msg.getBytes();
         long len = bytes.length;
@@ -190,15 +197,20 @@ public class image_album_show extends AppCompatActivity {
     public static final int CHOOSE_PHOTO = 2;
     TextView text;
     ProgressBar progressBar;
-
+    private SharedPreferences mShared_login;
     //接受前一个Intent传入的id
     private Bundle bundle;
     private int Show_Choice;
+    public String name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_album_show);
+
+        mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
+        name = mShared_login.getString("name","");//登录信息保存  by WF
+
 
         picture = (ImageView) findViewById(R.id.V_Image);
         Return_page=(Button)findViewById(R.id.Return_Back_to_page1);
@@ -286,6 +298,40 @@ public class image_album_show extends AppCompatActivity {
                                     intent.putExtra("info",info);
                                     intent.setClass(image_album_show.this, showInformation.class);
                                     startActivity(intent);
+
+                                    //////////
+                                    new Thread() {
+                                        @Override
+                                        public void run() {
+                                            try {
+                                                Looper.prepare();
+                                                String path = "http://202.203.16.38:8080/HelloWeb/RegLet2" + "?name=" + longinformation + "&info=" + name;
+                                                URL url = new URL(path);
+                                                URLConnection urlConnection = url.openConnection();
+                                                InputStream in = urlConnection.getInputStream();
+                                                printInputStream(in);
+                                                DatabaseHelper databaseHelper = new DatabaseHelper(image_album_show.this,"personnal1",null,1);//新建数据库personnal  by WF
+                                                SQLiteDatabase db = databaseHelper.getWritableDatabase();
+                                                String pa=db.getPath();
+                                                ContentValues values = new ContentValues();
+                                                values.put("name",longinformation);
+                                                values.put("info",name);
+                                                long a=db.insert("info_img",null,values);
+                                                if(a>0) {
+                                                    Toast.makeText(image_album_show.this, "Send information successfully", Toast.LENGTH_SHORT).show();
+                                                }
+//                                                else{
+//                                                    Toast.makeText(image_album_show.this, "fail to send information", Toast.LENGTH_SHORT).show();
+//                                                }
+                                                Looper.loop();
+
+                                            } catch (MalformedURLException e) {
+                                                e.printStackTrace();
+                                            } catch (IOException e) {
+                                                e.printStackTrace();
+                                            }
+                                        }
+                                    }.start();
                                 }
 
 
@@ -302,6 +348,7 @@ public class image_album_show extends AppCompatActivity {
                         }
                         //启动线程
                     }.start();
+
                 }
             }
         });
@@ -380,7 +427,28 @@ public class image_album_show extends AppCompatActivity {
 
 
     }
-//    ////////////////psc
+
+    private void printInputStream(InputStream is) {
+            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+            StringBuffer sb = new StringBuffer();
+            String line = null;
+            try {
+                while ((line = reader.readLine()) != null) {
+                    sb.append(line + "\n");
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            String rs = sb.toString();
+    }
+
+    //    ////////////////psc
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode==100&&grantResults.length>0&&(grantResults[0]+grantResults[1]==PackageManager.PERMISSION_GRANTED)){
@@ -396,13 +464,6 @@ public class image_album_show extends AppCompatActivity {
         if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(locationManager.NETWORK_PROVIDER)) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    ActivityCompat#requestPermissions
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for ActivityCompat#requestPermissions for more details.
                 return;
             }
             fusedLocationProviderClient.getLastLocation().addOnCompleteListener(new OnCompleteListener<Location>() {
@@ -428,13 +489,6 @@ public class image_album_show extends AppCompatActivity {
                             }
                         };
                         if (ActivityCompat.checkSelfPermission(image_album_show.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(image_album_show.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                            // TODO: Consider calling
-                            //    ActivityCompat#requestPermissions
-                            // here to request the missing permissions, and then overriding
-                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                            //                                          int[] grantResults)
-                            // to handle the case where the user grants the permission. See the documentation
-                            // for ActivityCompat#requestPermissions for more details.
                             return;
                         }
                         fusedLocationProviderClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
@@ -498,24 +552,6 @@ public class image_album_show extends AppCompatActivity {
     }
 
 
-
-
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {//得到或拒绝权限
-//        switch (requestCode) {
-//            case 1:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    openAlbum();
-//                }
-//                else {
-//                    Toast.makeText(this, "You denied the permission", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//            default:
-//                break;
-//        }
-//    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -547,6 +583,7 @@ public class image_album_show extends AppCompatActivity {
                             db.insertImage(getimagefromtaking[7]+"\t"+getimagefromtaking[2]+"\t"+getimagefromtaking[3]+"\t"+getimagefromtaking[5]+"-"+getimagefromtaking[6]);
                             db.insertjingweidu(getimagefromtaking[2],getimagefromtaking[3]);
                             Toast.makeText(image_album_show.this,"Saved Image successfully!",Toast.LENGTH_SHORT).show();
+                            longinformation=filetxt;
                         }
                         String dataiamge=db.getdata();
                         File myfile=new File("/sdcard/Spider.txt");
@@ -680,12 +717,14 @@ public class image_album_show extends AppCompatActivity {
 
         // 根据图片名称获取图片经纬度 add by cxy
         String imageName = getFileName(imagePath);
+        longinformation=String.valueOf(imageName+".jpg");
         Toast.makeText(image_album_show.this, imageName, Toast.LENGTH_LONG).show();
         String[] all=imageName.split("_");
         if(all.length >3){
             textView_location.setText("经纬度 : " + String.valueOf(all[2]) + " , " + String.valueOf(all[3]));
         }else{
             textView_location.setText("经纬度 : 无经纬度信息，请使用蜘识app进行拍照"+"\n"+"或者直接上传");
+            longinformation="None information";
         }
 
         compressBitmap(imagePath);

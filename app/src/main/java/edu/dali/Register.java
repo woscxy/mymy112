@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -27,6 +28,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.sql.ResultSet;
 
 import edu.dali.data.DatabaseHelper;
 
@@ -71,9 +73,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_reg:
-//                String xm = regUserName.getText().toString();
-//                String psd = regPassWord.getText().toString();
-//                String sf = shenfen.getText().toString();
                 //change by psc
                 xm = regUserName.getText().toString();
                 psd = regPassWord.getText().toString();

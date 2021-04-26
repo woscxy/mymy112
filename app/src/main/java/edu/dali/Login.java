@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Looper;
@@ -31,6 +33,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import android.os.Bundle;
 
+import com.google.android.gms.common.api.Response;
+
+import edu.dali.data.DatabaseHelper;
+
 /* 登录界面显示 字符数量验证 空字符验证 与服务器后台的交互 */
 
 public class Login extends AppCompatActivity implements View.OnClickListener{
@@ -47,6 +53,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
     private String infoString;
     private SharedPreferences mShared;
     public String name,passwords;
+    public String x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -147,6 +154,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
             while ((line = reader.readLine()) != null) {
 //                sb.append(line + "\n");
                 sb.append(line);         //change by cxy
+
             }
         } catch (IOException e) {
             e.printStackTrace();
