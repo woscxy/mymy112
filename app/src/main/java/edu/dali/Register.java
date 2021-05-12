@@ -10,11 +10,14 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -45,6 +48,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     ProgressDialog dialog;
     public String xm,psd,sf;
     private TextView login;
+    private String rs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,11 +103,31 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 }
                  else if(!isInternetConnection(Register.this))
                  {
-                     showCustomDialog();
-                     //Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
+                     ViewGroup viewGroup=findViewById(android.R.id.content);
+                     AlertDialog.Builder builder=new AlertDialog.Builder(Register.this);
+                     View view1= LayoutInflater.from(Register.this).inflate(R.layout.login_dialog,viewGroup,false);
+                     builder.setCancelable(false);
+                     builder.setView(view1);
+                     final AlertDialog alertDialog=builder.create();
+                     alertDialog.show();
+                     new Handler().postDelayed(new Runnable() {
+                         @Override
+                         public void run() {
+                             showCustomDialog();
+                             alertDialog.cancel();
+                         }
+                     },3000);
+                     //showCustomDialog();
                  }
                 else {//change by psc
                     if(psd.equals(sf)){//change by psc
+                        ViewGroup viewGroup=findViewById(android.R.id.content);
+                        AlertDialog.Builder builder=new AlertDialog.Builder(Register.this);
+                        View view1= LayoutInflater.from(Register.this).inflate(R.layout.login_dialog,viewGroup,false);
+                        builder.setCancelable(false);
+                        builder.setView(view1);
+                        final AlertDialog alertDialog=builder.create();
+                        alertDialog.show();
                         new Thread() {
                             @Override
                             public void run() {
@@ -121,14 +145,55 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                                     values.put("username",xm);
                                     values.put("password",psd);
                                     values.put("shenfen",sf);
+//                                    String info = printInputStream(in);   //输出到控制台 并得到后台返回的信息 change by cxy
+//                                    String geti=String.valueOf(info);
+//                                    System.out.println(geti);
+//                                    if(geti.equals("false")){
+//                                        new Handler().postDelayed(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//                                                Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
+//                                                alertDialog.dismiss();
+//                                            }
+//                                        },3000);
+//                                    }
+////                                    else{
+////                                        new Handler().postDelayed(new Runnable() {
+////                                            @Override
+////                                            public void run() {
+////                                                Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+////                                                alertDialog.cancel();
+////                                                Intent i=new Intent(Register.this,Login.class);
+////                                                startActivity(i);
+////                                            }
+////                                        },3000);
+////                                    }
                                     long a=db.insert("user",null,values);
                                     if(a>0) {
-                                        Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                                alertDialog.cancel();
+                                                Intent i=new Intent(Register.this,Login.class);
+                                                startActivity(i);
+                                            }
+                                        },3000);
+//                                        Toast.makeText(Register.this, "注册成功", Toast.LENGTH_SHORT).show();
+//                                        Intent i=new Intent(Register.this,Login.class);
+//                                        startActivity(i);
                                     }else{
-                                        Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
+                                                alertDialog.cancel();
+                                            }
+                                        },3000);
+                                        //Toast.makeText(Register.this, "貌似未写入数据", Toast.LENGTH_SHORT).show();
+
                                     }
                                     Looper.loop();
-
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
                                 } catch (IOException e) {
@@ -146,7 +211,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         }
     }
 
-    private void printInputStream(InputStream is){
+    private String printInputStream(InputStream is){
         BufferedReader reader = new BufferedReader(new InputStreamReader(is));
         StringBuffer sb = new StringBuffer();
         String line = null;
@@ -163,8 +228,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 e.printStackTrace();
             }
         }
-        String rs = sb.toString();
+        rs = sb.toString();
         Log.e("注册信息",rs);
+        return rs;
     }
     public static   boolean isInternetConnection(Context mContext)
     {

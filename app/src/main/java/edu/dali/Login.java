@@ -12,12 +12,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Handler;
 import android.os.Looper;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -98,10 +101,30 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                 }
                 else if(!isInternetConnection(Login.this))
                 {
-                    showCustomDialog();
+                    ViewGroup viewGroup=findViewById(android.R.id.content);
+                    AlertDialog.Builder builder=new AlertDialog.Builder(Login.this);
+                    View view1= LayoutInflater.from(Login.this).inflate(R.layout.login_dialog,viewGroup,false);
+                    builder.setCancelable(false);
+                    builder.setView(view1);
+                    final AlertDialog alertDialog=builder.create();
+                    alertDialog.show();
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            showCustomDialog();
+                            alertDialog.cancel();
+                        }
+                    },3000);
                     //Toast.makeText(getApplicationContext(),"internet is available",Toast.LENGTH_LONG).show();
                 }
                 else{//change by psc
+                    ViewGroup viewGroup=findViewById(android.R.id.content);
+                    AlertDialog.Builder builder=new AlertDialog.Builder(Login.this);
+                    View view1= LayoutInflater.from(Login.this).inflate(R.layout.login_dialog,viewGroup,false);
+                    builder.setCancelable(false);
+                    builder.setView(view1);
+                    final AlertDialog alertDialog=builder.create();
+                    alertDialog.show();
                     new Thread() {
                         @Override
                         public void run() {
@@ -120,12 +143,23 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                     SharedPreferences.Editor editor = mShared.edit(); // 获得编辑器对象
                                     editor.putString("name",name); // 添加一个名叫name的字符串参数
                                     editor.apply();
-                                    Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
-                                    Intent i=new Intent(Login.this,gongneng.class);
-                                    startActivity(i);
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(Login.this, "登录成功", Toast.LENGTH_SHORT).show();
+                                            Intent i=new Intent(Login.this,gongneng.class);
+                                            startActivity(i);
+                                        }
+                                    },3000);
                                     Looper.loop();
                                 }else{
-                                    Toast.makeText(Login.this, "登录失败，请重新登陆", Toast.LENGTH_SHORT).show();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(Login.this, "登录失败，请重新登陆", Toast.LENGTH_SHORT).show();
+                                            alertDialog.cancel();
+                                        }
+                                    },3000);
                                     Looper.loop();
                                 }
 

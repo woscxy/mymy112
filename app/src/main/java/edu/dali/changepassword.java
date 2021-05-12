@@ -2,13 +2,18 @@ package edu.dali;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -39,6 +44,7 @@ public class changepassword extends AppCompatActivity {
         bt_info=findViewById(R.id.button_bt_info);
         mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);
         name = mShared_login.getString("name","");//登录信息保存  by WF
+        text_information.setText(name);
         bt_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +73,13 @@ public class changepassword extends AppCompatActivity {
                 }
                 else {
                     if(psd.equals(sf)){
+                        ViewGroup viewGroup=findViewById(android.R.id.content);
+                        AlertDialog.Builder builder=new AlertDialog.Builder(changepassword.this);
+                        View view1= LayoutInflater.from(changepassword.this).inflate(R.layout.login_dialog,viewGroup,false);
+                        builder.setCancelable(false);
+                        builder.setView(view1);
+                        final AlertDialog alertDialog=builder.create();
+                        alertDialog.show();
                         new Thread() {
                             @Override
                             public void run() {
@@ -87,8 +100,15 @@ public class changepassword extends AppCompatActivity {
                                     values.put("username",x);
                                     values.put("password",y);
                                     values.put("shenfen",z);
-                                    Toast.makeText(changepassword.this,"You have changed password successfully",Toast.LENGTH_SHORT).show();
-                                    Looper.loop();
+                                    new Handler().postDelayed(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(changepassword.this,"You have changed password successfully",Toast.LENGTH_SHORT).show();
+                                            Intent geti=new Intent(changepassword.this,gongneng.class);
+                                            startActivity(geti);
+                                            finish();
+                                        }
+                                    },3000);
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
                                 } catch (IOException e) {

@@ -25,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1" />
     <LinearLayout
+        android:background="@drawable/conerofedittext"
         android:layout_gravity="center"
         android:gravity="center"
         android:layout_width="wrap_content"
@@ -37,13 +38,13 @@
             app:cardCornerRadius="75dp"
             app:contentPadding="0.5dp">
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
+                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -56,8 +57,8 @@
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:paddingLeft="10dp"
+                    android:background="@drawable/conerofedittext"
                     android:textColorHint="#495060"
-                    android:background="@color/white"
                     android:layout_gravity="center"
                     android:textColor="@android:color/black"
                     android:hint="请输入账号" />
@@ -66,6 +67,7 @@
         </androidx.cardview.widget.CardView>
     </LinearLayout>
     <LinearLayout
+        android:background="@drawable/conerofedittext"
         android:layout_marginTop="5dp"
         android:layout_gravity="center"
         android:gravity="center"
@@ -79,13 +81,13 @@
             app:cardCornerRadius="75dp"
             app:contentPadding="0.5dp">
             <LinearLayout
-                android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <ImageView
+                    android:layout_marginLeft="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -98,8 +100,8 @@
                     android:layout_width="250dp"
                     android:layout_height="50dp"
                     android:paddingLeft="10dp"
+                    android:background="@drawable/conerofedittext"
                     android:textColorHint="#495060"
-                    android:background="@color/white"
                     android:textColor="@android:color/black"
                     android:hint="请输入密码"
                     android:inputType="textPassword" />
@@ -127,7 +129,7 @@
                 android:layout_width="286dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@android:color/holo_blue_light"
+                android:background="@drawable/bg_card1"
                 android:text="登录"
                 android:textSize="20dp"
                 android:textStyle="bold" />

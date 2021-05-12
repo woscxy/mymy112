@@ -59,26 +59,32 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
                 android:padding="6dp">
-
-                <ImageView
+                <de.hdodenhof.circleimageview.CircleImageView
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:layout_width="96dp"
+                    android:layout_height="96dp"
+                    android:background="@drawable/profile_picture"
                     android:id="@+id/ms_iv_activity"
-                    android:layout_width="55dp"
-                    android:layout_height="55dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_centerHorizontal="true"
-                    android:scaleType="center"
-                    android:src="@mipmap/people_0" />
-                <View
-                    android:id="@+id/ms_iv_blank"
-                    android:layout_centerHorizontal="true"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:background="@drawable/image_circle" />
+                    app:civ_border_color="@color/white2"
+                    app:civ_border_width="2dp" />
+                <!--                <ImageView-->
+                <!--                    android:id="@+id/ms_iv_activity"-->
+                <!--                    android:layout_width="60dp"-->
+                <!--                    android:layout_height="60dp"-->
+                <!--                    android:layout_marginTop="6dp"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:scaleType="fitXY" />-->
+                <!--                <View-->
+                <!--                    android:id="@+id/ms_iv_blank"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:layout_width="70dp"-->
+                <!--                    android:layout_height="70dp"-->
+                <!--                    android:background="@drawable/image_circle" />-->
                 <TextView
                     android:id="@+id/name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="80dp"
+                    android:layout_marginTop="100dp"
                     android:text=" 昵称"
                     android:layout_centerHorizontal="true"
                     android:textSize="15sp"
@@ -87,6 +93,24 @@
                     />
 
             </RelativeLayout>
+            <TextView
+                android:id="@+id/text_info"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:textSize="20dp"
+                android:layout_marginLeft="10dp" />
+            <Button
+                android:layout_marginLeft="10dp"
+                android:id="@+id/bt_upload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Upload" />
+            <Button
+                android:layout_marginLeft="10dp"
+                android:id="@+id/bt_show"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ShowImage" />
         </LinearLayout>
     </ScrollView>
 
@@ -176,9 +200,12 @@
                 android:text=" 我的 "
                 android:textColor="@color/colorPrimary"
                 android:textSize="11sp" />
+
         </LinearLayout>
 
     </LinearLayout>
+
+
 
 
 </RelativeLayout>
