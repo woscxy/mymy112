@@ -111,6 +111,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ShowImage" />
+            <TextView
+                android:layout_marginLeft="10dp"
+                android:id="@+id/text_getuser"
+                android:textSize="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="user" />
         </LinearLayout>
     </ScrollView>
 
@@ -204,8 +211,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>

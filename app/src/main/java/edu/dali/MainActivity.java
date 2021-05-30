@@ -72,11 +72,20 @@ public class MainActivity extends AppCompatActivity {
     private ImageView logo;
     public View view1;
     public Button bt_logo;
+    public ImageView image_search;
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        image_search=findViewById(R.id.image_search);
+        image_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(MainActivity.this,single_user_item.class);
+                startActivity(i);
+            }
+        });
 
         logo=(ImageView)findViewById(R.id.image_logo);
         logo.setOnClickListener(new View.OnClickListener() {
@@ -118,8 +127,8 @@ public class MainActivity extends AppCompatActivity {
         mShared_login = getSharedPreferences("name_info", MODE_PRIVATE);//从sharedpreference中取出
         name = mShared_login.getString("name","");//登录信息保存  by WF
         /////
-        getnameuser=(TextView) findViewById(R.id.text_get_name_of_user);
-        getnameuser.setText(name);
+//        getnameuser=(TextView) findViewById(R.id.text_get_name_of_user);
+//        getnameuser.setText(name);
         /////
         if(name==""){
             Toast.makeText(MainActivity.this, "欢迎您使用蜘识，请您登录！", Toast.LENGTH_SHORT).show();
@@ -144,12 +153,12 @@ public class MainActivity extends AppCompatActivity {
         });
         ExpandableTextView textView=findViewById(R.id.expandable_text_view);
         textView.setText(getString(R.string.dummyText));
-        text=findViewById(R.id.zhizhu);
+//        text=findViewById(R.id.zhizhu);
         im2=findViewById(R.id.image_search);
         animation1= AnimationUtils.loadAnimation(this,R.anim.slide_down);
         animation2= AnimationUtils.loadAnimation(this,R.anim.slide_in);
         animation3= AnimationUtils.loadAnimation(this,R.anim.blinking);
-        text.startAnimation(animation1);
+//        text.startAnimation(animation1);
         im2.startAnimation(animation3);
         ImageView sy1=(ImageView) findViewById(R.id.sy1);
 

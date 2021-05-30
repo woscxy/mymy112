@@ -29,31 +29,41 @@ public class shezhi extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
 
-        ImageView sy3= findViewById(R.id.sy3);
-        sy3.setOnClickListener(new View.OnClickListener() {
+        Button button_setting_back=(Button)findViewById(R.id.button_setting_back);
+        button_setting_back.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i=new Intent(shezhi.this,MainActivity.class);
+            public void onClick(View view) {
+                Intent i=new Intent(shezhi.this,my.class);
                 startActivity(i);
-            }
-        });
-        ImageView gn3= findViewById(R.id.gn3);
-        gn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(shezhi.this,gongneng.class);
-                startActivity(i);
+                finish();
             }
         });
 
-        ImageView sz3= findViewById(R.id.sz3);
-        sz3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(shezhi.this,my.class);
-                startActivity(i);
-            }
-        });
+//        ImageView sy3= findViewById(R.id.sy3);
+//        sy3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i=new Intent(shezhi.this,MainActivity.class);
+//                startActivity(i);
+//            }
+//        });
+//        ImageView gn3= findViewById(R.id.gn3);
+//        gn3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i=new Intent(shezhi.this,gongneng.class);
+//                startActivity(i);
+//            }
+//        });
+//
+//        ImageView sz3= findViewById(R.id.sz3);
+//        sz3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i=new Intent(shezhi.this,my.class);
+//                startActivity(i);
+//            }
+//        });
         Button version= findViewById(R.id.version);
         version.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,14 +72,14 @@ public class shezhi extends AppCompatActivity {
                 startActivity(i);
             }
         });
-        Button tongyong= findViewById(R.id.tongyong);
-        tongyong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i=new Intent(shezhi.this,tyActivity.class);
-                startActivity(i);
-            }
-        });
+//        Button tongyong= findViewById(R.id.tongyong);
+//        tongyong.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent i=new Intent(shezhi.this,tyActivity.class);
+//                startActivity(i);
+//            }
+//        });
         Button guanyu= findViewById(R.id.guanyu);
         guanyu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,5 +156,4 @@ public class shezhi extends AppCompatActivity {
         AlertDialog alertDialog=builder.create();
         alertDialog.show();
     }
-
 }

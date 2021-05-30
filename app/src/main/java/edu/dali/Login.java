@@ -164,8 +164,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener{
                                 }
 
                             } catch (MalformedURLException e) {
+                                alertDialog.dismiss();
                                 e.printStackTrace();
                             } catch (IOException e) {
+                                alertDialog.dismiss();
                                 e.printStackTrace();
                             }
                         }

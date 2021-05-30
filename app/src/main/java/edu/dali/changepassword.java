@@ -39,6 +39,15 @@ public class changepassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_changepassword);
         text_information=findViewById(R.id.text_information);
+        Button button_setting_back=(Button)findViewById(R.id.button_changepassword_back);
+        button_setting_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(changepassword.this,shezhi.class);
+                startActivity(i);
+                finish();
+            }
+        });
         passs=findViewById(R.id.pass);
         passs2=findViewById(R.id.pass2);
         bt_info=findViewById(R.id.button_bt_info);
@@ -103,12 +112,15 @@ public class changepassword extends AppCompatActivity {
                                     new Handler().postDelayed(new Runnable() {
                                         @Override
                                         public void run() {
+                                            alertDialog.dismiss();
                                             Toast.makeText(changepassword.this,"You have changed password successfully",Toast.LENGTH_SHORT).show();
                                             Intent geti=new Intent(changepassword.this,gongneng.class);
                                             startActivity(geti);
                                             finish();
                                         }
                                     },3000);
+                                    Looper.loop();
+
                                 } catch (MalformedURLException e) {
                                     e.printStackTrace();
                                 } catch (IOException e) {

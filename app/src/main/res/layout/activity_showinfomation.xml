@@ -18,7 +18,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#dde0fa"
+        android:background="@drawable/bg_card_bt_upload"
         android:text="更多结果"
         android:layout_weight="0.1"/>
     <TextView

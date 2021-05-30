@@ -7,8 +7,9 @@
     tools:context=".image_album_show">
 
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+        android:padding="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ProgressBar
@@ -22,17 +23,18 @@
             android:layout_height="wrap_content"
             android:text="图片预览"/>
 
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="382dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ImageView
             android:id="@+id/V_Image"
+            android:scaleType="fitXY"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1080px"
             android:layout_gravity="center_horizontal"
             android:layout_weight="1" />
     </LinearLayout>
@@ -61,7 +63,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="回到功能页面"
-            android:background="#dde0fa"
+            android:background="@drawable/bg_card_bt_upload"
             android:layout_weight="1"/>
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +75,7 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="#dde0fa"
+            android:background="@drawable/bg_card_bt_upload"
             android:text="上传并识别"
             android:layout_weight="1"/>
     </LinearLayout>
